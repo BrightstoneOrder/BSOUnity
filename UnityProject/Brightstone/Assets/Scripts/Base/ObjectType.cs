@@ -35,6 +35,7 @@ namespace Brightstone
             mID = id;
         }
 
+        public string GetBaseType() { return mBaseType; }
         public string GetName() { return mName; }
         public string GetScope() { return mScope; }
         public string GetFullName() { return SCOPE_CHAR + mScope + SCOPE_CHAR + mName; }

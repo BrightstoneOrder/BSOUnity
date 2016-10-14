@@ -14,18 +14,39 @@ namespace Brightstone
     public delegate void InputCallback(ref InputEventData data);
     public class InputMgr 
 	{
+        struct InputCallbackPair
+        {
+            public BaseComponent targetComponent;
+            public BaseObject targetObject;
+            public InputCallback callback;
+
+            public bool IsValid()
+            {
+                return callback != null && (targetComponent != null || targetObject != null);
+            }
+        }
+
         private int mHandlerCount = 0;
         private InputHandler[] mHandlers = null;
-        private List<InputCallback>[] mCallbacks = null;
+        private List<InputCallbackPair>[] mCallbacks = null;
 
         public void RegisterCallback(InputCallback callback, InputCode code)
         {
-            mCallbacks[(int)code].Add(callback);
+            InputCallbackPair pair = new InputCallbackPair();
+            pair.targetComponent = callback.Target as BaseComponent;
+            pair.targetObject = callback.Target as BaseObject;
+            pair.callback = callback;
+
+            mCallbacks[(int)code].Add(pair);
         }
 
         public void UnregisterCallback(InputCallback callback, InputCode code)
         {
-            mCallbacks[(int)code].Remove(callback);
+            int index = mCallbacks[(int)code].FindIndex(x => x.callback == callback);
+            if(index != -1)
+            {
+                mCallbacks[(int)code].RemoveAt(index);
+            }
         }
 
         public float PeekAxisValue(InputCode code)
@@ -87,7 +108,7 @@ namespace Brightstone
             mHandlers = new InputHandler[Util.GetEnumCount<InputCode>()];
             mHandlers[0] = new InputHandler(); mHandlerCount = 1; // IC_NONE
             RegisterDualAxis(InputCode.IC_PLAYER_MOVE_VERTICAL, KeyCode.W, KeyCode.S, 1.0f, true);
-            RegisterDualAxis(InputCode.IC_PLAYER_MOVE_HORIZONTAL, KeyCode.A, KeyCode.D, 1.0f, true);
+            RegisterDualAxis(InputCode.IC_PLAYER_MOVE_HORIZONTAL, KeyCode.D, KeyCode.A, 1.0f, true);
 
             // TODO: Modify bindings with user data..
             // eg. Look for "IC_PLAYER_MOVE_VERTICAL.PrimaryKey and IC_PLAYER_MOVE_HORIZONTAL.SecondaryKey"
@@ -100,10 +121,10 @@ namespace Brightstone
 
         public void Init(World world)
         {
-            mCallbacks = new List<InputCallback>[Util.GetEnumCount<InputCode>()];
+            mCallbacks = new List<InputCallbackPair>[Util.GetEnumCount<InputCode>()];
             for(int i = 0; i < mCallbacks.Length; ++i)
             {
-                mCallbacks[i] = new List<InputCallback>();
+                mCallbacks[i] = new List<InputCallbackPair>();
             }
             RegisterInputs();
         }
@@ -139,12 +160,12 @@ namespace Brightstone
                             eventData.press = true;
                             eventData.release = false;
                             // notify press
-                            List<InputCallback> receievers = mCallbacks[(int)handler.GetInputCode()];
+                            List<InputCallbackPair> receievers = mCallbacks[(int)handler.GetInputCode()];
                             for(int j = 0; i < receievers.Count; ++j)
                             {
-                                if(receievers[j] != null)
+                                if(receievers[j].IsValid())
                                 {
-                                    receievers[j].Invoke(ref eventData);
+                                    receievers[j].callback.Invoke(ref eventData);
                                 }
                             }
                         }
@@ -155,12 +176,12 @@ namespace Brightstone
                             eventData.press = false;
                             eventData.release = true;
                             // notify release
-                            List<InputCallback> receievers = mCallbacks[(int)handler.GetInputCode()];
+                            List<InputCallbackPair> receievers = mCallbacks[(int)handler.GetInputCode()];
                             for (int j = 0; i < receievers.Count; ++j)
                             {
-                                if (receievers[j] != null)
+                                if (receievers[j].IsValid())
                                 {
-                                    receievers[j].Invoke(ref eventData);
+                                    receievers[j].callback.Invoke(ref eventData);
                                 }
                             }
                         }

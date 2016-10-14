@@ -4,6 +4,13 @@
 
 ===================================================================================================
 
+****PIXEL PERFECT****
+1. Scale Ortho Size with Vertical Resolution
+- eg. OrthoSize = (Screen Height)/(Pixels Per Unit * Pixels Per Unit Scale) * 0.5
+2. Sprite not using mipmaps
+3. Sprite using Point filter for rendering.
+4. Sprite imported with proper pixels per unit.
+
 Naming Convention
 namespace Brightstone -- Pascal Case unless abbreviation then Capital CAse
 class Name -- Pascal Case

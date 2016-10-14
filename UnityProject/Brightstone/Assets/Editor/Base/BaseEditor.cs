@@ -15,6 +15,8 @@ namespace Brightstone
             public ReorderableList list;
         }
 
+        private List<SerializedProperty> mAutoProperties = null;
+
         public delegate void ListDrawCallback(ReorderableList list);
         protected virtual ListDrawCallback GetListDrawCallback(string typename)
         {
@@ -45,6 +47,77 @@ namespace Brightstone
             }
             //CreateListDraw_GameOption(listProp.list);
             return listProp;
+        }
+
+        private static List<string> GetSerializedFields(Type type)
+        {
+            List<string> fieldStrings = new List<string>();
+            MemberInfo[] fields = type.GetMembers(BindingFlags.NonPublic | BindingFlags.Instance);
+            if(fields == null || fields.Length == 0)
+            {
+                return fieldStrings;
+            }
+            Type attribType = typeof(SerializeField);
+            for (int i = 0; i < fields.Length; ++i)
+            {
+                if(fields[i].GetCustomAttributes(attribType,true).Length > 0)
+                {
+                    fieldStrings.Add(fields[i].Name);
+                }
+            }
+            return fieldStrings;
+        }
+
+        private string FormatLabelString(string label)
+        {
+            int offset = 0;
+            if (label.Length > 1 && label[0] == 'm')
+            {
+                if (label[1] == '_') // m_Health
+                {
+                    offset = 2;
+                }
+                else if (char.IsUpper(label[1])) // mHealth
+                {
+                    offset = 1;
+                }
+            }
+            label = label.Substring(offset);
+            bool readingLower = char.IsLower(label[0]);
+
+            for (int i = 1; i < label.Length; ++i)
+            {
+                bool charIsUpper = char.IsUpper(label[i]);
+                if (readingLower && charIsUpper)
+                {
+                    //label.Insert(i-1, " "); // insert not working?
+                    label = label.Substring(0, i) + " " + label.Substring(i);
+                    ++i;
+                }
+                readingLower = !charIsUpper;
+            }
+            return label;
+        }
+
+        protected void AutoSerializeProperties(Type editType)
+        {
+            if(mAutoProperties == null)
+            {
+                mAutoProperties = new List<SerializedProperty>();
+                List<string> propNames = GetSerializedFields(editType);
+                for(int i = 0; i < propNames.Count; ++i)
+                {
+                    SerializedProperty prop = serializedObject.FindProperty(propNames[i]);
+                    if(prop != null)
+                    {
+                        mAutoProperties.Add(prop);
+                    }
+                }
+            }
+            for(int i = 0; i < mAutoProperties.Count; ++i)
+            {
+                AddProperty(mAutoProperties[i]);
+            }
         }
 
         // private static void ListDraw_GameOption(ReorderableList list)
@@ -162,7 +235,9 @@ namespace Brightstone
 
         protected void AddProperty(SerializedProperty prop)
         {
-            EditorGUILayout.PropertyField(prop, true);
+            string name = FormatLabelString(prop.name);
+            GUIContent label = new GUIContent(name);
+            EditorGUILayout.PropertyField(prop, label, true);
         }
 
         protected void AddProperty(SerializedListProperty prop)

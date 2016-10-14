@@ -64,6 +64,9 @@ namespace Brightstone
         /** Called once to recycle the component. Set defaults. */
         protected virtual void OnRecycle() { }
 
+        /** Called to serialize object properties.*/
+        public virtual void Serialize(BaseStream stream) { }
+
 
         public Transform GetTransform()
         {

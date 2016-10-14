@@ -5,6 +5,9 @@ namespace Brightstone
 	{
         public static World ActiveWorld = null;
 
+        // Semi-Global stuff
+        InputMgr mInputMgr = null;
+
         private Timer mClock = new Timer();
         private const float MAX_DELTA = 0.1f;
         private float mLastTimeStamp = 0.0f;
@@ -15,6 +18,8 @@ namespace Brightstone
         private float mApplicationDelta = 0.0f;
         private float mApplicationElapsedTime = 0.0f;
         private bool mGamePaused = false;
+
+        
 
         private void Awake()
         {
@@ -32,6 +37,20 @@ namespace Brightstone
         private void OnDestroy()
         {
             InternalDestroy();
+        }
+
+        protected override void OnInit()
+        {
+            mClock.Start();
+            mInputMgr = new InputMgr();
+            mInputMgr.Init(this);
+
+        }
+
+        private void Update()
+        {
+            UpdateTime();
+            mInputMgr.Update(this);
         }
 
         private void UpdateTime()
@@ -53,5 +72,6 @@ namespace Brightstone
 
         public float GetGameDelta() { return mGameDelta; }
         public float GetApplicationDelta() { return mApplicationDelta; }
+        public InputMgr GetInputMgr() { return mInputMgr; }
 	}
 }

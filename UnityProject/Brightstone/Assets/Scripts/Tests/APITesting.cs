@@ -6,11 +6,12 @@ namespace Brightstone
 	{
 		private void Start()
         {
-           
+            TestMgr.RunTests(string.Empty);
         }
 
         private void Update()
         {
+            
             // T for test?
             if(Input.GetKeyDown(KeyCode.T))
             {
@@ -95,8 +96,8 @@ namespace Brightstone
 
         void ObjectTypeTests()
         {
-            TypeMgr typeMgr = TypeMgr.GetInstance();
-
+            // TypeMgr typeMgr = TypeMgr.GetInstance();
+            
 
             StartTest("ObjectTypeTests");
             ObjectType type = new ObjectType();

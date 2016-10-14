@@ -1,0 +1,52 @@
+$[SInventory,BaseObject]
+{
+	Items:{
+		{
+			Typename:String("Brightstone.StreamTest+SItemEx")
+			Instance:{
+				Name:String("Lilas")
+				Id:String("cc6a710b-ba6e-4ae2-b844-b5bc11b21512")
+				Available:Number32(0)
+				Cost:Number32(419)
+				Rarity:Number32(3)
+				Compatibility:{
+					String("Samara")
+				}
+			}
+		}
+		{
+			Typename:String("Brightstone.StreamTest+SItemEx")
+			Instance:{
+				Name:String("Cally")
+				Id:String("61e7f645-ab03-4abc-8dd8-e3dd6a40c198")
+				Available:Number32(0)
+				Cost:Number32(374)
+				Rarity:Number32(2)
+				Compatibility:{
+					String("Tonye")
+					String("Annabell")
+					String("Max")
+				}
+			}
+		}
+	}
+}
+$[TestInventory,SInventory]
+{
+	Items:{
+		{
+			Typename:String("Brightstone.StreamTest+SItemEx")
+			Instance:{
+				Name:String("Greed")
+				Id:String("f22d0f78-dbde-4258-9df7-78322dbd2405")
+				Available:Number32(32)
+				Cost:Number32(250)
+				Rarity:Number32(2)
+				Compatibility:{
+					String("Simon")
+					String("Luna")
+				}
+			}
+		}
+	}
+}

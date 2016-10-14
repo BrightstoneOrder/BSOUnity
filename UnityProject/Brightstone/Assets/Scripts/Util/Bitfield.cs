@@ -76,6 +76,6 @@ namespace Brightstone
         {
             value = 0;
         }
-         
+
     }
 }

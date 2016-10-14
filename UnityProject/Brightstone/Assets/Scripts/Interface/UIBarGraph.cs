@@ -7,7 +7,7 @@ namespace Brightstone
 	{
         public class UIBar
         {
-            private float mWidth = 0.0f;
+            // private float mWidth = 0.0f;
             private float mHeight = 0.0f;
             private RectTransform mTransform = null;
             private Text mText = null;
@@ -17,7 +17,7 @@ namespace Brightstone
 
             public void Apply(float width, float height)
             {
-                mWidth = width;
+                // mWidth = width;
                 mHeight = height;
                 if (mTransform != null)
                 {
