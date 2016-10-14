@@ -1,0 +1,40 @@
+$[OptionMgr,BaseObject]
+{
+	Options:{
+		{
+			OptionType:String("OT_BOOL")
+			Name:String("NONE")
+			OptionName:Number32(0)
+			Value:Number32(0)
+		}
+		{
+			OptionType:String("OT_BOOL")
+			Name:String("Click To Move")
+			OptionName:Number32(1)
+			Value:Number32(0)
+		}
+		{
+			OptionType:String("OT_FLOAT")
+			Name:String("Camera Sensitivity")
+			OptionName:Number32(2)
+			Value:Float(0.5)
+			Min:Float(0.1)
+			Max:Float(1)
+		}
+		{
+			OptionType:String("OT_ENUM")
+			Name:String("Graphics Preset")
+			OptionName:Number32(3)
+			Value:Number32(3)
+			NumEnums:Number32(4)
+			EN0:String("Low")
+			EI0:Number32(0)
+			EN1:String("Medium")
+			EI1:Number32(1)
+			EN2:String("High")
+			EI2:Number32(2)
+			EN3:String("Ultra")
+			EI3:Number32(3)
+		}
+	}
+}

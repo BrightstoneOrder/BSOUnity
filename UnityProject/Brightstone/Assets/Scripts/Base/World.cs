@@ -7,6 +7,7 @@ namespace Brightstone
 
         // Semi-Global stuff
         InputMgr mInputMgr = null;
+        OptionMgr mOptionMgr = null;
 
         private Timer mClock = new Timer();
         private const float MAX_DELTA = 0.1f;
@@ -41,6 +42,9 @@ namespace Brightstone
 
         protected override void OnInit()
         {
+            mOptionMgr = new OptionMgr();
+            mOptionMgr.Init();
+
             mClock.Start();
             mInputMgr = new InputMgr();
             mInputMgr.Init(this);

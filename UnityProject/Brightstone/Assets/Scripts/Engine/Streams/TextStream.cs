@@ -361,6 +361,36 @@ namespace Brightstone
                 context.Pop();
             }
         }
+
+        // public void StartArray(string name)
+        // {
+        //     StreamContext context = GetActiveContext();
+        //     if (context == null)
+        //     {
+        //         ReportError(StreamError.SE_INVALID_CONTEXT, "property = " + name);
+        //         return;
+        //     }
+        //     StreamObject top = context.GetTop();
+        //     if (top == null)
+        //     {
+        //         ReportError(StreamError.SE_INVALID_OBJECT, "property = " + name);
+        //         return;
+        //     }
+        //     if(IsReading())
+        //     {
+        //         StreamObject child = top.FindChild(name);
+        //         if(child != null && child.GetPropertyType() == StreamPropertyType.SPT_ARRAY)
+        //         {
+        //             context.Push(child);
+        //         }
+        //     }
+        // }
+        // 
+        // public void StopArray()
+        // {
+        // 
+        // }
+
         public override void Serialize(string name, ref List<float> collection)
         {
             StreamContext context = GetActiveContext();
@@ -940,5 +970,9 @@ namespace Brightstone
             return sb.ToString();
         }
 
+        public override bool IsText()
+        {
+            return true;
+        }
     }
 }

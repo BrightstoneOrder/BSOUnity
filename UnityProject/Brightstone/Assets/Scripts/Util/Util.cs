@@ -63,13 +63,23 @@ namespace Brightstone
         */
         public static int GetEnumCount<T>() where T : struct, IConvertible
         {
-            if (!typeof(T).IsEnum)
+            Type enumType = typeof(T);
+            if (!enumType.IsEnum)
             {
                 return -1;
             }
-            return Enum.GetValues(typeof(T)).Length;
+            return Enum.GetValues(enumType).Length;
         }
 
+        public static T GetEnumValueFromString<T>(string valueString) where T : struct, IConvertible
+        {
+            Type enumType = typeof(T);
+            if(!enumType.IsEnum)
+            {
+                return default(T);
+            }
+            return (T)Enum.Parse(enumType, valueString);
+        }
         /**
         * Converts string hex value to int
         */

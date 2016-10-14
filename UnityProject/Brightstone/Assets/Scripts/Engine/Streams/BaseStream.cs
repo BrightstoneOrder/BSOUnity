@@ -13,7 +13,6 @@ namespace Brightstone
     */
     public class BaseStream
     {
-
         private bool mReading = false;
         protected List<StreamContext> mStreamContexts = new List<StreamContext>();
         protected int mActiveContext = -1;
@@ -150,7 +149,7 @@ namespace Brightstone
 
         public bool IsReading() { return mReading; }
         public void SetReadingMode(bool reading) { mReading = reading; }
-
+        public virtual bool IsText() { return false; }
  
     }
 

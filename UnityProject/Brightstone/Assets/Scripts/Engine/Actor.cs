@@ -8,6 +8,14 @@ namespace Brightstone
         private List<SubComponent> mSubComponents = new List<SubComponent>();
 
 
+        public virtual void OnUpdate(float delta)
+        {
+            for(int i = 0; i < mSubComponents.Count; ++i)
+            {
+                mSubComponents[i].OnUpdate(delta);
+            }
+        }
+
         protected override void OnRecycle()
         {
             mType = null;
