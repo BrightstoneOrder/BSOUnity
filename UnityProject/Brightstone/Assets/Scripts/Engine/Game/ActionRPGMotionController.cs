@@ -12,11 +12,68 @@ namespace Brightstone
      */
     public class ActionRPGMotionController : SubComponent
     {
+        private Option mClickToMove = null;
+        private GameObject mClickEffect = null;
+        
+        private void CreateEffect(ref InputEventData eventData)
+        {
+            if(eventData.press)
+            {
+                if (mClickEffect != null && World.ActiveWorld.GetInputMgr().NativeGetButtonState(InputButton.IB_LEFT))
+                {
+                    InputMouseData mouseData = World.ActiveWorld.GetInputMgr().GetMouseData();
+                    Instantiate(mClickEffect, mouseData.worldPosition, Quaternion.identity);
+                }
+            }
+        }
+
+        protected override void OnInit()
+        {
+            mClickToMove = World.ActiveWorld.GetOptionsMgr().GetOption(OptionName.ON_CLICK_TO_MOVE);
+            if(mClickToMove.GetOptionType() != OptionType.OT_BOOL)
+            {
+                Log.Game.Error("ActionRPGMotionController expects " + mClickToMove.GetName() + " option to be a click to move.");
+            }
+            InputMgr inputMgr = World.ActiveWorld.GetInputMgr();
+            inputMgr.RegisterCallback(CreateEffect, InputCode.IC_PLAYER_CLICK);
+        }
+
+        private void Start()
+        {
+            InternalInit();
+            mClickEffect = Resources.Load("Game/Effects/ClickEffect", typeof(GameObject)) as GameObject;
+            if(mClickEffect == null)
+            {
+                Log.Game.Error("Failed to load click effect!");
+            }
+        }
+
+        private void Update()
+        {
+            
+        }
+
         public override void OnUpdate(float delta)
         {
             base.OnUpdate(delta);
+            if(mClickToMove.GetBoolValue())
+            {
+                UpdateClickToMove(delta);
+            }
+            else
+            {
+                UpdateControllerMove(delta);
+            }
+        }
 
-            //Option mClickToMove = World.ActiveWorld.GetOptionMgr().FindOption(OptionType.OT_CLICK_TO_MOVE);
+        private void UpdateClickToMove(float delta)
+        {
+
+        }
+
+        private void UpdateControllerMove(float delta)
+        {
+
         }
     }
 }

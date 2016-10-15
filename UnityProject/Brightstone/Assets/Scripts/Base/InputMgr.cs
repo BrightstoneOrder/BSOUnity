@@ -131,7 +131,7 @@ namespace Brightstone
             mHandlers[0] = new InputHandler(); mHandlerCount = 1; // IC_NONE
             RegisterDualAxis(InputCode.IC_PLAYER_MOVE_VERTICAL, KeyCode.W, KeyCode.S, 1.0f, true);
             RegisterDualAxis(InputCode.IC_PLAYER_MOVE_HORIZONTAL, KeyCode.D, KeyCode.A, 1.0f, true);
-
+            RegisterMouse(InputCode.IC_PLAYER_CLICK, InputButton.IB_LEFT);
             // TODO: Modify bindings with user data..
             // eg. Look for "IC_PLAYER_MOVE_VERTICAL.PrimaryKey and IC_PLAYER_MOVE_HORIZONTAL.SecondaryKey"
         }
@@ -269,7 +269,7 @@ namespace Brightstone
                             eventData.release = false;
                             // notify press
                             List<InputCallbackPair> receievers = mCallbacks[(int)handler.GetInputCode()];
-                            for(int j = 0; i < receievers.Count; ++j)
+                            for(int j = 0; j < receievers.Count; ++j)
                             {
                                 if(receievers[j].IsValid())
                                 {
@@ -285,7 +285,7 @@ namespace Brightstone
                             eventData.release = true;
                             // notify release
                             List<InputCallbackPair> receievers = mCallbacks[(int)handler.GetInputCode()];
-                            for (int j = 0; i < receievers.Count; ++j)
+                            for (int j = 0; j < receievers.Count; ++j)
                             {
                                 if (receievers[j].IsValid())
                                 {

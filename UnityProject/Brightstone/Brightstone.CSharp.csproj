@@ -99,6 +99,7 @@
     <Compile Include="Assets\Scripts\Base\Project.cs" />
     <Compile Include="Assets\Scripts\Base\TypeMgr.cs" />
     <Compile Include="Assets\Scripts\Base\World.cs" />
+    <Compile Include="Assets\Scripts\Effects\ClickEffect.cs" />
     <Compile Include="Assets\Scripts\Engine\Actor.cs" />
     <Compile Include="Assets\Scripts\Engine\Camera2D.cs" />
     <Compile Include="Assets\Scripts\Engine\Game\ActionRPGMotionController.cs" />
