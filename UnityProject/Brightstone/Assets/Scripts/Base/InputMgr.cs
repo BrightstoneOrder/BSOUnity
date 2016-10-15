@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using System.Collections.Generic;
+
+
 
 namespace Brightstone
 {
@@ -26,9 +29,18 @@ namespace Brightstone
             }
         }
 
+        // Input Handler Vars. Input handlers act as "buttons, axis, dual axis" but translated into enum game codes.
         private int mHandlerCount = 0;
         private InputHandler[] mHandlers = null;
+        // List of callbacks associated with a InputCode
         private List<InputCallbackPair>[] mCallbacks = null;
+        // Input and Mouse data vars to gather mouse data.
+        // Mouse data is gathered once each frame. (Reduces the number of raycasts.)
+        private EventSystem mEventSystem = null;
+        private InputMouseData mMouseData = new InputMouseData();
+        private InputMouseData mPreviousMouseData = new InputMouseData();
+        private List<ObjectType> mIgnoreTypes = new List<ObjectType>();
+        private List<Actor> mIgnoreActors = new List<Actor>();
 
         public void RegisterCallback(InputCallback callback, InputCode code)
         {
@@ -103,6 +115,16 @@ namespace Brightstone
             ++mHandlerCount;
         }
 
+        private void RegisterMouse(InputCode code, InputButton button)
+        {
+            InputHandler handler = new Brightstone.InputHandler();
+            handler.SetInputButton(button);
+            handler.SetInputCode(code);
+            handler.SetInputHandlerType(InputHandlerType.IHT_MOUSE);
+            mHandlers[mHandlerCount] = handler;
+            ++mHandlerCount;
+        }
+
         private void RegisterInputs()
         {
             mHandlers = new InputHandler[Util.GetEnumCount<InputCode>()];
@@ -118,6 +140,10 @@ namespace Brightstone
         {
             return Input.GetKey(keyCode);
         }
+        public bool NativeGetButtonState(InputButton button)
+        {
+            return Input.GetMouseButton((int)button);
+        }
 
         public void Init(World world)
         {
@@ -127,15 +153,92 @@ namespace Brightstone
                 mCallbacks[i] = new List<InputCallbackPair>();
             }
             RegisterInputs();
+            mEventSystem = EventSystem.current;
         }
 
         public void Update(World world)
         {
+            
             UpdateHandlers(world);
         }
 
         private void UpdateMouse()
         {
+            // Get Mouse to world data
+            mPreviousMouseData = mMouseData;
+            mMouseData = new InputMouseData();
+            mMouseData.screenPosition = Input.mousePosition;
+            Ray screenToWorldRay = World.ActiveWorld.GetGameCamera().ScreenPointToRay(mMouseData.screenPosition);
+            mMouseData.screenToWorldDirection = screenToWorldRay.direction;
+            mMouseData.screenToWorldPosition = screenToWorldRay.origin;
+
+            if(mEventSystem == null)
+            {
+                mEventSystem = EventSystem.current;
+            }
+            if(mEventSystem)
+            {
+                if(mEventSystem.currentSelectedGameObject == null)
+                {
+                    mMouseData.target = InputMouseData.Target.World;
+                }
+                else
+                {
+                    mMouseData.target = InputMouseData.Target.Interface;
+                }
+            }
+            // Create query and Raycast to get some data.
+            RaycastQuery query = new RaycastQuery();
+            query.direction = mMouseData.screenToWorldDirection;
+            query.origin = mMouseData.screenToWorldPosition;
+            query.distance = 100.0f;
+            query.mask = PhysicsMgr.RAYCAST_ALL;
+            query.orderByDistance = true;
+            RaycastResult result = World.ActiveWorld.GetPhysicsMgr().Raycast(query);
+            
+            Vector3 hitPoint = query.origin;
+            // Find the actual hitPoint
+            for (int i = 0; i < result.hits.Length; ++i)
+            {
+                Actor actor = Actor.GetRootActor(result.hits[i].transform);
+                // Hit first non-actor
+                if(!actor)
+                {
+                    hitPoint = result.hits[i].point;
+                    break;
+                }
+                bool ignore = false;
+                for (int j = 0; j < mIgnoreTypes.Count; ++j)
+                {
+                    if (actor.IsType(mIgnoreTypes[j]))
+                    {
+                        ignore = true;
+                        break;
+                    }
+                }
+                if (!ignore)
+                {
+                    for (int j = 0; j < mIgnoreActors.Count; ++j)
+                    {
+                        if (actor == mIgnoreActors[j])
+                        {
+                            ignore = true;
+                            break;
+                        }
+                    }
+                }
+                // Or Closest not ignored actor!
+                if (!ignore && actor != null)
+                {
+                    hitPoint = result.hits[i].point;
+                }
+            }
+
+            Actor[] actors = World.ActiveWorld.GetPhysicsMgr().GetRootActors(ref result);
+            mMouseData.hitActor = actors != null && actors.Length > 0 ? actors[0] : null;
+            mMouseData.worldPosition = hitPoint;
+
+
 
         }
 
@@ -147,7 +250,7 @@ namespace Brightstone
             {
                 InputHandler handler = mHandlers[i];
                 handler.Update(this, delta);
-                if(handler.GetInputHandlerType() == InputHandlerType.IHT_BUTTON)
+                if(handler.GetInputHandlerType() == InputHandlerType.IHT_BUTTON || handler.GetInputHandlerType() == InputHandlerType.IHT_MOUSE)
                 {
                     float prev = handler.GetLastValue();
                     float current = handler.GetCurrentValue();
@@ -189,6 +292,35 @@ namespace Brightstone
                 }
             }
             
+        }
+
+        /** Get mouse data. This is data retrieved based on a raycast each frame. */
+        public InputMouseData GetMouseData() { return mMouseData; }
+        /** Get previous mouse data. The previous frames mouse data. */
+        public InputMouseData GetPreviousMouseData() { return mPreviousMouseData; }
+        /** Get the ignored types. These are types that are ignored when doing the mouse data raycast.*/
+        public List<ObjectType> GetIgnoredTypes() { return mIgnoreTypes; }
+        /** Get the ignored actors. These are the ignored actors when doing the mouse data raycast.*/
+        public List<Actor> GetIgnoredActors() { return mIgnoreActors; }
+        /** Adds a type to the ignore list. These are the ignored types when doing the mouse data raycast. */
+        public void AddIgnore(ObjectType type)
+        {
+            mIgnoreTypes.Add(type);
+        }
+        /** Adds a actor to the ignore list. These are the ignored actors when doing the mouse data raycast. */
+        public void AddIgnore(Actor actor)
+        {
+            mIgnoreActors.Add(actor);
+        }
+        /** Removes a type from the ignore list. */
+        public void RemoveIgnore(ObjectType type)
+        {
+            mIgnoreTypes.Remove(type);
+        }
+        /** Removes a actor from the ignore list. */
+        public void RemoveIgnore(Actor actor)
+        {
+            mIgnoreActors.Remove(actor);
         }
 
 	}
