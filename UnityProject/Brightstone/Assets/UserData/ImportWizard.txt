@@ -6,5 +6,9 @@ $[ImportWizard,BaseWindow]
 			ExternalName:String("D:/Game Development/Public Assets/Blender Models/Effects/ArrowClick/ArrowClick_mesh.fbx")
 			InternalName:String("/Effects/ArrowClick/ArrowClick_mesh.fbx")
 		}
+		{
+			ExternalName:String("D:/Game Development/Public Assets/Blender Models/Effects/ArrowClick/ArrowClick_d.psd")
+			InternalName:String("/Effects/ArrowClick/ArrowClick_d.psd")
+		}
 	}
 }
