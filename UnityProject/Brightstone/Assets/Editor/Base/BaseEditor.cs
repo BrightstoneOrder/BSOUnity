@@ -207,6 +207,7 @@ namespace Brightstone
                 GUI.enabled = false;
                 OnGameUpdate(targetComponent);
                 GUI.enabled = true;
+                Repaint();
             }
             EndEdit();
         }

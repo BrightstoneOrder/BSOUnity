@@ -24,7 +24,7 @@ namespace Brightstone
         private int mQueriesMade = 0;
         private int mQueriesMadeLastFrame = 0;
 
-        protected void Init()
+        public void Init()
         {
             Log.Sys.Info("Initialized PhysicsMgr...");
             mQueriesPerUpdate = World.ActiveWorld.GetOptionsMgr().GetOption(OptionName.ON_PHYSICS_QUERIES_PER_UPDATE);
@@ -33,7 +33,7 @@ namespace Brightstone
                 Log.Phys.Error("Option " + mQueriesPerUpdate.GetName() + " should be type OT_INT but its " + mQueriesPerUpdate.GetOptionType().ToString());
             }
         }
-        protected void Shutdown()
+        public void Shutdown()
         {
 
         }
@@ -88,7 +88,7 @@ namespace Brightstone
             ++mAsyncRequests;
         }
 
-        private void Update()
+        public void Update(World world)
         {
             DeferredUpdate();
             mQueriesMadeLastFrame = mQueriesMade;
@@ -241,6 +241,10 @@ namespace Brightstone
             result = new RaycastResult(culled.ToArray(), result.async);
             return amountCulled;
         }
+
+        public int GetQueriesMade() { return mQueriesMade; }
+        public int GetQueriesMadeLastFrame() { return mQueriesMadeLastFrame; }
+
     }
 
 }

@@ -50,12 +50,17 @@ namespace Brightstone
             mInputMgr = new InputMgr();
             mInputMgr.Init(this);
 
+            mPhysicsMgr = new PhysicsMgr();
+            mPhysicsMgr.Init();
+
+
         }
 
         private void Update()
         {
             UpdateTime();
             mInputMgr.Update(this);
+            mPhysicsMgr.Update(this);
         }
 
         private void UpdateTime()

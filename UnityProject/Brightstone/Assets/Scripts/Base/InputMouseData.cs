@@ -14,6 +14,7 @@ namespace Brightstone
         public Vector3 screenToWorldDirection;
         public Vector3 worldPosition;
         public Actor hitActor;
+        public GameObject hitGameObject;
         // These were made for 'RPG like' gameplay where the cursor could hit the edge of the screen.
         //public bool boarderLeft;
         //public bool boarderRight;

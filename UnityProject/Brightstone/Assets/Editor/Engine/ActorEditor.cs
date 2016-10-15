@@ -24,7 +24,6 @@ namespace Brightstone
             {
                 AddProperty(mScript);
             }
-            
         }
     }
 }

@@ -48,5 +48,27 @@ $[OptionMgr,BaseObject]
 				EI3:Number32(3)
 			}
 		}
+		{
+			Typename:String("Brightstone.Option")
+			Instance:{
+				OptionType:String("OT_INT")
+				Name:String("Physics.QueriesPerUpdate")
+				OptionName:Number32(4)
+				Value:Number32(15)
+				Min:Number32(1)
+				Max:Number32(100)
+			}
+		}
+		{
+			Typename:String("Brightstone.Option")
+			Instance:{
+				OptionType:String("OT_FLOAT")
+				Name:String("Input.MouseRaycastDistance")
+				OptionName:Number32(5)
+				Value:Float(100)
+				Min:Float(0)
+				Max:Float(0)
+			}
+		}
 	}
 }

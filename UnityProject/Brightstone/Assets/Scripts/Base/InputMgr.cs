@@ -158,8 +158,8 @@ namespace Brightstone
 
         public void Update(World world)
         {
-            
             UpdateHandlers(world);
+            UpdateMouse();
         }
 
         private void UpdateMouse()
@@ -205,6 +205,7 @@ namespace Brightstone
                 if(!actor)
                 {
                     hitPoint = result.hits[i].point;
+                    mMouseData.hitGameObject = result.hits[i].transform.gameObject;
                     break;
                 }
                 bool ignore = false;
@@ -236,6 +237,10 @@ namespace Brightstone
 
             Actor[] actors = World.ActiveWorld.GetPhysicsMgr().GetRootActors(ref result);
             mMouseData.hitActor = actors != null && actors.Length > 0 ? actors[0] : null;
+            if(mMouseData.hitActor != null)
+            {
+                mMouseData.hitGameObject = mMouseData.hitActor.gameObject;
+            }
             mMouseData.worldPosition = hitPoint;
 
 
