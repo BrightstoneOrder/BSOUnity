@@ -8,7 +8,7 @@ namespace Brightstone
     /**
     * This class can serialize int, long, string, and BaseObject types.
     */
-    class TextStream : BaseStream
+    public class TextStream : BaseStream
     {
         /**Set true if you want to have the text stream encode numbers in hex.*/
         protected static bool ENCODE_HEX = false;

@@ -4,7 +4,7 @@ using System;
 
 namespace Brightstone
 {
-    class NumericalStream : TextStream
+    public class NumericalStream : TextStream
     {
         //
         protected int mCurrentNameID = 0;

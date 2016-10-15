@@ -13,13 +13,11 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.4.1f1</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -88,14 +86,14 @@
     <Compile Include="Assets\Scripts\Base\Context.cs" />
     <Compile Include="Assets\Scripts\Base\EditorVariable.cs" />
     <Compile Include="Assets\Scripts\Base\EventMgr.cs" />
+    <Compile Include="Assets\Scripts\Base\InputButton.cs" />
     <Compile Include="Assets\Scripts\Base\InputCode.cs" />
     <Compile Include="Assets\Scripts\Base\InputEventData.cs" />
     <Compile Include="Assets\Scripts\Base\InputHandler.cs" />
     <Compile Include="Assets\Scripts\Base\InputHandlerType.cs" />
     <Compile Include="Assets\Scripts\Base\InputMgr.cs" />
-    <Compile Include="Assets\Scripts\Base\NetworkMgr.cs" />
     <Compile Include="Assets\Scripts\Base\InputMouseData.cs" />
-    <Compile Include="Assets\Scripts\Base\InputButton.cs" />
+    <Compile Include="Assets\Scripts\Base\NetworkMgr.cs" />
     <Compile Include="Assets\Scripts\Base\NpcMgr.cs" />
     <Compile Include="Assets\Scripts\Base\ObjectType.cs" />
     <Compile Include="Assets\Scripts\Base\Project.cs" />
@@ -159,6 +157,7 @@
     <None Include="Assets\Resources\Engine\Materials\ColorMaterials\SkewShader.shader" />
     <None Include="Assets\Scripts\ReadMe.txt" />
     <None Include="Assets\UserData\Game\Options.txt" />
+    <None Include="Assets\UserData\ImportWizard.txt" />
     <None Include="Assets\UserData\RandomNames.txt" />
     <None Include="Assets\UserData\TestInput2.txt" />
     <None Include="Assets\UserData\TestOutput2.txt" />
