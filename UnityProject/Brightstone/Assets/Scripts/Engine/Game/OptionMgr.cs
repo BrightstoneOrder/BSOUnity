@@ -4,27 +4,28 @@ namespace Brightstone
 {
     public class OptionMgr : BaseObject
     {
-        Option[] mOptions = null;
+        NestedObject<Option>[] mOptions = null;
         private string mWriteLocation = "/Game/Options.txt";
 
         public void Init()
         {
             int size = Util.GetEnumCount<OptionName>();
-            mOptions = new Option[size];
+            mOptions = new NestedObject<Option>[size];
             for(int i = 0; i < size; ++i)
             {
-                mOptions[i] = new Option();
+                mOptions[i] = new NestedObject<Option>();
+                mOptions[i].SetInstance(new Option());
             }
-            mOptions[0].InitBool(OptionName.ON_NONE, "NONE", false);
-            mOptions[1].InitBool(OptionName.ON_CLICK_TO_MOVE, "Click To Move", false);
-            mOptions[2].InitFloat(OptionName.ON_CAMERA_SENSITIVITY, "Camera Sensitivity", 0.5f, 0.1f, 1.0f);
-            mOptions[3].InitEnum(OptionName.ON_GRAPHICS_GENERAL, "Graphics Preset", new[] {
+            mOptions[0].GetInstance().InitBool(OptionName.ON_NONE, "NONE", false);
+            mOptions[1].GetInstance().InitBool(OptionName.ON_CLICK_TO_MOVE, "Click To Move", false);
+            mOptions[2].GetInstance().InitFloat(OptionName.ON_CAMERA_SENSITIVITY, "Camera Sensitivity", 0.5f, 0.1f, 1.0f);
+            mOptions[3].GetInstance().InitEnum(OptionName.ON_GRAPHICS_GENERAL, "Graphics Preset", new[] {
                 new EnumDescriptor("Low", 0),
                 new EnumDescriptor("Medium", 1),
                 new EnumDescriptor("High", 2),
                 new EnumDescriptor("Ultra", 3)
             });
-            // SaveFile();
+            SaveFile();
 
             // LoadFile();
         }
@@ -40,7 +41,7 @@ namespace Brightstone
 
         public override void Serialize(BaseStream stream)
         {
-            List<Option> options = new List<Option>(mOptions);
+            List<NestedObject<Option>> options = new List<NestedObject<Option>>(mOptions);
             stream.Serialize("Options", ref options);
             if(stream.IsReading())
             {
@@ -48,7 +49,7 @@ namespace Brightstone
                 {
                     if(i < options.Count)
                     {
-                        mOptions[i].LoadFrom(options[i]);
+                        mOptions[i].GetInstance().LoadFrom(options[i].GetInstance());
                     }
                 }
             }
@@ -56,7 +57,7 @@ namespace Brightstone
 
         public Option GetOption(OptionName name)
         {
-            return mOptions[(int)name];
+            return mOptions[(int)name].GetInstance();
         }
         public Option GetOption(string name)
         {
@@ -64,7 +65,7 @@ namespace Brightstone
             {
                 if(mOptions[i].GetName() == name)
                 {
-                    return mOptions[i];
+                    return mOptions[i].GetInstance();
                 }
             }
             return null;
