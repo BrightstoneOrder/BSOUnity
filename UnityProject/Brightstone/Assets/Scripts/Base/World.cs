@@ -8,6 +8,7 @@ namespace Brightstone
         // Semi-Global stuff
         InputMgr mInputMgr = null;
         OptionMgr mOptionMgr = null;
+        PhysicsMgr mPhysicsMgr = null;
 
         private Timer mClock = new Timer();
         private const float MAX_DELTA = 0.1f;
@@ -76,6 +77,9 @@ namespace Brightstone
 
         public float GetGameDelta() { return mGameDelta; }
         public float GetApplicationDelta() { return mApplicationDelta; }
+        public Camera GetGameCamera() { return Camera.main; }
         public InputMgr GetInputMgr() { return mInputMgr; }
+        public OptionMgr GetOptionsMgr() { return mOptionMgr; }
+        public PhysicsMgr GetPhysicsMgr() { return mPhysicsMgr; }
 	}
 }

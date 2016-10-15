@@ -13,6 +13,7 @@ namespace Brightstone
         public static Log Game = new Log("Game");
         public static Log Lib = new Log("Lib");
         public static Log Test = new Log("Test");
+        public static Log Phys = new Log("Physics");
 
         /** Name of the log.*/
         private string mName = string.Empty;

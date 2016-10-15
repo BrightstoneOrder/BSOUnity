@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.4.1f1</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -64,11 +66,11 @@
     <Reference Include="ProBuilderCore-Unity5">
       <HintPath>Assets\ProCore\ProBuilder\Classes\ProBuilderCore-Unity5.dll</HintPath>
     </Reference>
-    <Reference Include="KDTree">
-      <HintPath>Assets\ProCore\ProBuilder\Classes\ClassesLib\KDTree.dll</HintPath>
-    </Reference>
     <Reference Include="ProBuilderMeshOps-Unity5">
       <HintPath>Assets\ProCore\ProBuilder\Classes\ProBuilderMeshOps-Unity5.dll</HintPath>
+    </Reference>
+    <Reference Include="KDTree">
+      <HintPath>Assets\ProCore\ProBuilder\Classes\ClassesLib\KDTree.dll</HintPath>
     </Reference>
     <Reference Include="Triangle">
       <HintPath>Assets\ProCore\ProBuilder\Classes\ClassesLib\Triangle.dll</HintPath>
@@ -92,9 +94,10 @@
     <Compile Include="Assets\Scripts\Base\InputHandlerType.cs" />
     <Compile Include="Assets\Scripts\Base\InputMgr.cs" />
     <Compile Include="Assets\Scripts\Base\NetworkMgr.cs" />
+    <Compile Include="Assets\Scripts\Base\InputMouseData.cs" />
+    <Compile Include="Assets\Scripts\Base\InputButton.cs" />
     <Compile Include="Assets\Scripts\Base\NpcMgr.cs" />
     <Compile Include="Assets\Scripts\Base\ObjectType.cs" />
-    <Compile Include="Assets\Scripts\Base\PhysicsMgr.cs" />
     <Compile Include="Assets\Scripts\Base\Project.cs" />
     <Compile Include="Assets\Scripts\Base\TypeMgr.cs" />
     <Compile Include="Assets\Scripts\Base\World.cs" />
@@ -106,6 +109,7 @@
     <Compile Include="Assets\Scripts\Engine\Game\OptionMgr.cs" />
     <Compile Include="Assets\Scripts\Engine\Game\OptionName.cs" />
     <Compile Include="Assets\Scripts\Engine\Game\OptionType.cs" />
+    <Compile Include="Assets\Scripts\Engine\Game\Spawner.cs" />
     <Compile Include="Assets\Scripts\Engine\Game\Unit.cs" />
     <Compile Include="Assets\Scripts\Engine\Streams\BaseStream.cs" />
     <Compile Include="Assets\Scripts\Engine\Streams\NestedObject.cs" />
@@ -120,6 +124,11 @@
     <Compile Include="Assets\Scripts\Engine\SubComponent.cs" />
     <Compile Include="Assets\Scripts\Engine\TileMap.cs" />
     <Compile Include="Assets\Scripts\Interface\UIBarGraph.cs" />
+    <Compile Include="Assets\Scripts\Physics\KinematicBox.cs" />
+    <Compile Include="Assets\Scripts\Physics\MathUtils.cs" />
+    <Compile Include="Assets\Scripts\Physics\PhysicsMgr.cs" />
+    <Compile Include="Assets\Scripts\Physics\RaycastQuery.cs" />
+    <Compile Include="Assets\Scripts\Physics\SphereCastQuery.cs" />
     <Compile Include="Assets\Scripts\Tests\APITesting.cs" />
     <Compile Include="Assets\Scripts\Util\Bitfield.cs" />
     <Compile Include="Assets\Scripts\Util\EnumDescriptor.cs" />

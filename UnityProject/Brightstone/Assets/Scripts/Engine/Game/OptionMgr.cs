@@ -11,10 +11,19 @@ namespace Brightstone
         {
             int size = Util.GetEnumCount<OptionName>();
             mOptions = new NestedObject<Option>[size];
+            bool editorOnly = true;
             for(int i = 0; i < size; ++i)
             {
                 mOptions[i] = new NestedObject<Option>();
-                mOptions[i].SetInstance(new Option());
+                if(i == (int)OptionName.ON_CLICK_TO_MOVE)
+                {
+                    editorOnly = false;
+                }
+                else if(i == (int)OptionName.ON_PHYSICS_QUERIES_PER_UPDATE)
+                {
+                    editorOnly = true;
+                }
+                mOptions[i].SetInstance(new Option(editorOnly));
             }
             mOptions[0].GetInstance().InitBool(OptionName.ON_NONE, "NONE", false);
             mOptions[1].GetInstance().InitBool(OptionName.ON_CLICK_TO_MOVE, "Click To Move", false);
@@ -25,6 +34,8 @@ namespace Brightstone
                 new EnumDescriptor("High", 2),
                 new EnumDescriptor("Ultra", 3)
             });
+            mOptions[4].GetInstance().InitInt(OptionName.ON_PHYSICS_QUERIES_PER_UPDATE, "Physics.QueriesPerUpdate", 15, 1, 100);
+            mOptions[5].GetInstance().InitFloat(OptionName.ON_INPUT_MOUSE_RAYCAST_DISTANCE, "Input.MouseRaycastDistance", 100.0f, 0.0f, 0.0f);
             SaveFile();
 
             // LoadFile();

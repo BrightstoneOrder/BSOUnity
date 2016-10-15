@@ -11,6 +11,7 @@ namespace Brightstone
         private float mLastValue = 0.0f;
         private KeyCode mPrimaryKey = KeyCode.None;
         private KeyCode mSecondaryKey = KeyCode.None;
+        private InputButton mInputButton = InputButton.IB_NONE;
         private InputCode mInputCode = InputCode.IC_NONE;
 
         /** If true, ONLY the Primary Key is used and values are clamped from 0 to 1. */
@@ -24,6 +25,7 @@ namespace Brightstone
         public float GetLastValue() { return mLastValue; }
         public KeyCode GetPrimaryKey() { return mPrimaryKey; }
         public KeyCode GetSecondaryKey() { return mSecondaryKey; }
+        public InputButton GetInputButton() { return mInputButton; }
         public InputCode GetInputCode() { return mInputCode; }
         public InputHandlerType GetInputHandlerType() { return mHandlerType; }
         public float GetDeltaModifier() { return mDeltaModifier; }
@@ -31,6 +33,7 @@ namespace Brightstone
 
         public void SetPrimaryKey(KeyCode keyCode) { mPrimaryKey = keyCode; }
         public void SetSecondaryKey(KeyCode keyCode) { mSecondaryKey = keyCode; }
+        public void SetInputButton(InputButton button) { mInputButton = button; }
         public void SetInputCode(InputCode code) { mInputCode = code; }
         public void SetInputHandlerType(InputHandlerType type) { mHandlerType = type; }
         public void SetDeltaModifier(float value) { mDeltaModifier = value; }
@@ -44,6 +47,24 @@ namespace Brightstone
                 case InputHandlerType.IHT_BUTTON: UpdateButton(inputMgr, delta); break;
                 case InputHandlerType.IHT_AXIS:
                 case InputHandlerType.IHT_DUAL_AXIS: UpdateAxis(inputMgr, delta); break;
+                case InputHandlerType.IHT_MOUSE: UpdateMouse(inputMgr, delta); break;
+            }
+        }
+
+        private void UpdateMouse(InputMgr inputMgr, float delta)
+        {
+            if(mInputButton == InputButton.IB_NONE)
+            {
+                return;
+            }
+            mLastValue = mCurrentValue;
+            if(inputMgr.NativeGetButtonState(mInputButton))
+            {
+                mCurrentValue = 1.0f;
+            }
+            else
+            {
+                mCurrentValue = 0.0f;
             }
         }
 

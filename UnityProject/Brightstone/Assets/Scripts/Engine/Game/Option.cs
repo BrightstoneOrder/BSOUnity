@@ -9,7 +9,13 @@ namespace Brightstone
         private float mValue = 0.0f;
         private float mMin = 0.0f;
         private float mMax = 0.0f;
+        private bool mEditorOnly = false;
         private EnumDescriptor[] mEnumDescriptors = null;
+
+        public Option(bool editorOnly) : base()
+        {
+            mEditorOnly = editorOnly;
+        }
 
         public override void Serialize(BaseStream stream)
         {
@@ -107,6 +113,7 @@ namespace Brightstone
         public float GetMin() { return mMin; }
         public float GetMax() { return mMax; }
         public EnumDescriptor[] GetEnumDescriptors() { return mEnumDescriptors; }
+        public bool IsEditorOnly() { return mEditorOnly; }
 
         public void LoadFrom(Option other)
         {
