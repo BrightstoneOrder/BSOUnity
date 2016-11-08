@@ -6,7 +6,13 @@ namespace Brightstone
 {
 	public class Actor : BaseComponent 
 	{
-        private ObjectType mType = null;
+        // [ObjectTypeView]
+        // [SerializeField]
+        // private ObjectType mType = null;
+
+        [PrefabView]
+        [SerializeField]
+        private Prefab mType = null;
         private List<SubComponent> mSubComponents = new List<SubComponent>();
 
         /**
@@ -38,7 +44,7 @@ namespace Brightstone
 
         protected override void OnRecycle()
         {
-            mType = null;
+            // mType = null;
         }
 
         public bool IsType(ObjectType type)
@@ -47,6 +53,10 @@ namespace Brightstone
         }
 
         public List<SubComponent> GetSubComponents() { return mSubComponents; }
-        public ObjectType GetObjectType() { return mType; }
+        public ObjectType GetObjectType() { return null; }
+        public Prefab GetObjectPrefabType() { return mType; }
+
+        /** Called internally by editor and game*/
+        public void InternalInitType(ObjectType type) { }
     }
 }

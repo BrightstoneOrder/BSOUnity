@@ -13,8 +13,24 @@ namespace Brightstone
 
         // Awake : Called as the new window is opened => OnInit
         // OnDestroy : called as the window is closed => OnClose
-        // OnGUI : Called to draw GUI ( slow / repaint )
+        // OnGUI : Called to draw GUI ( slow / repaint ) => InternalDraw
         // Update : Called to update ( fast )
+
+        /** -- Copy Paste --
+        void Awake()
+        {
+            OnInit();
+        }
+        void OnDestroy()
+        {
+            OnClose();
+        }
+        void OnGUI()
+        {
+            InternalDraw();
+        }
+        */
+
         private int mIndentLevel = 0; // cannot go below 0
 
         public class SerializedListProperty

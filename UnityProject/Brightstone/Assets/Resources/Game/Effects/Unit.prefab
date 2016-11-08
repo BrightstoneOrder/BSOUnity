@@ -102,6 +102,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4060aff8ec80fd74194fcaaf2d84140b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mType:
+    mEditorInstance: {fileID: 1000010818837930, guid: 315b3453aa286d54da81ff084592dea2,
+      type: 2}
+    mName: Game/Effects/Unit
+    mBaseName: Engine/Unit
+  mItemType:
+    mEditorInstance: {fileID: 0}
+    mName: 
+    mBaseName: 
 --- !u!143 &143000012589984544
 CharacterController:
   m_ObjectHideFlags: 1

@@ -96,6 +96,9 @@
     <Compile Include="Assets\Scripts\Base\NetworkMgr.cs" />
     <Compile Include="Assets\Scripts\Base\NpcMgr.cs" />
     <Compile Include="Assets\Scripts\Base\ObjectType.cs" />
+    <Compile Include="Assets\Scripts\Base\ObjectTypeViewAttribute.cs" />
+    <Compile Include="Assets\Scripts\Base\Prefab.cs" />
+    <Compile Include="Assets\Scripts\Base\PrefabViewAttribute.cs" />
     <Compile Include="Assets\Scripts\Base\Project.cs" />
     <Compile Include="Assets\Scripts\Base\TypeMgr.cs" />
     <Compile Include="Assets\Scripts\Base\World.cs" />
@@ -162,6 +165,8 @@
     <None Include="Assets\UserData\RandomNames.txt" />
     <None Include="Assets\UserData\TestInput2.txt" />
     <None Include="Assets\UserData\TestOutput2.txt" />
+    <None Include="Assets\UserData\TypeMap.txt" />
+    <None Include="Assets\UserData\TypeMap2.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

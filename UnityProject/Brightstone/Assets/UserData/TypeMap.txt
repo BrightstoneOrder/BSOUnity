@@ -1,0 +1,40 @@
+$[TypeMap,BaseObject]
+{
+	mTypes:{
+		{
+			Name:String("/Engine/Actor")
+			Base:String("")
+			Id:Number32(0)
+		}
+		{
+			Name:String("/Engine/Unit")
+			Base:String("/Engine/Actor")
+			Id:Number32(1)
+		}
+		{
+			Name:String("/Game/A")
+			Base:String("/Engine/Actor")
+			Id:Number32(4)
+		}
+		{
+			Name:String("/Game/B")
+			Base:String("/Game/A")
+			Id:Number32(5)
+		}
+		{
+			Name:String("/Game/C")
+			Base:String("/Game/B")
+			Id:Number32(6)
+		}
+		{
+			Name:String("/Game/Effects/ClickEffect")
+			Base:String("/Engine/Actor")
+			Id:Number32(2)
+		}
+		{
+			Name:String("/Game/Effects/Unit")
+			Base:String("/Engine/Unit")
+			Id:Number32(3)
+		}
+	}
+}

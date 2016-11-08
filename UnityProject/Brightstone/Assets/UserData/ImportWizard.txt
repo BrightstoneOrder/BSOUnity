@@ -1,6 +1,6 @@
 $[ImportWizard,BaseWindow]
 {
-	ImportLocation:String("D:/Game Development/Public Assets/Blender Models")
+	ImportLocation:String("D:/Game Development/Private Assets/Artherion")
 	ImportData:{
 		{
 			ExternalName:String("D:/Game Development/Public Assets/Blender Models/Effects/ArrowClick/ArrowClick_mesh.fbx")
@@ -9,6 +9,14 @@ $[ImportWizard,BaseWindow]
 		{
 			ExternalName:String("D:/Game Development/Public Assets/Blender Models/Effects/ArrowClick/ArrowClick_d.psd")
 			InternalName:String("/Effects/ArrowClick/ArrowClick_d.psd")
+		}
+		{
+			ExternalName:String("D:/Game Development/Private Assets/Artherion/Props/Torch/Torch_mesh.FBX")
+			InternalName:String("/Props/Torch/Torch_mesh.FBX")
+		}
+		{
+			ExternalName:String("D:/Game Development/Private Assets/Artherion/Props/Torch/Torch_d.png")
+			InternalName:String("/Props/Torch/Torch_d.png")
 		}
 	}
 }

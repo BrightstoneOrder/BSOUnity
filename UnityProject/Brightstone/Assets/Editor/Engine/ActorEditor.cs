@@ -6,6 +6,7 @@ namespace Brightstone
 	public class ActorEditor : BaseEditor 
 	{
         SerializedProperty mScript = null;
+        
 
         void OnEnable()
         {
@@ -24,6 +25,7 @@ namespace Brightstone
             {
                 AddProperty(mScript);
             }
+            AutoSerializeProperties(typeof(Actor));
         }
     }
 }

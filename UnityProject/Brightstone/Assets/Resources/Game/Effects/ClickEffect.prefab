@@ -320,6 +320,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14907937579be074ab42a66a5d0fcd1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mType:
+    mEditorInstance: {fileID: 1000010038396670, guid: e9afb09c88450204d891739e1ef6dcd5,
+      type: 2}
+    mName: Game/Effects/ClickEffect
+    mBaseName: Engine/Actor
 --- !u!114 &114000014137018770
 MonoBehaviour:
   m_ObjectHideFlags: 1

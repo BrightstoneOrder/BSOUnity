@@ -58,7 +58,7 @@ namespace Brightstone
             GetTransform().localScale = new Vector3(scale, scale, scale);
             for(int i = 0; i < mChildMaterialInstances.Length; ++i)
             {
-                mChildMaterialInstances[i].mainTextureOffset = new Vector2(offset, 0.04f);
+                mChildMaterialInstances[i].mainTextureOffset = new Vector2(offset, 0.0f);
             }
 
             if(mElapsedTime >= mLoopTime)

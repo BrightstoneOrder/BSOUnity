@@ -9,6 +9,7 @@ namespace Brightstone
         InputMgr mInputMgr = null;
         OptionMgr mOptionMgr = null;
         PhysicsMgr mPhysicsMgr = null;
+        TypeMgr mTypeMgr = null;
 
         private Timer mClock = new Timer();
         private const float MAX_DELTA = 0.1f;
@@ -45,6 +46,9 @@ namespace Brightstone
         {
             mOptionMgr = new OptionMgr();
             mOptionMgr.Init();
+
+            mTypeMgr = new TypeMgr();
+            mTypeMgr.Init();
 
             mClock.Start();
             mInputMgr = new InputMgr();
@@ -86,5 +90,6 @@ namespace Brightstone
         public InputMgr GetInputMgr() { return mInputMgr; }
         public OptionMgr GetOptionsMgr() { return mOptionMgr; }
         public PhysicsMgr GetPhysicsMgr() { return mPhysicsMgr; }
+        public TypeMgr GetTypeMgr() { return mTypeMgr; }
 	}
 }

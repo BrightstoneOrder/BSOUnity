@@ -1,0 +1,33 @@
+$[TypeMap,BaseObject]
+{
+	mTypes:{
+		{
+			Name:String("Engine/Actor")
+			BaseName:String("")
+		}
+		{
+			Name:String("Engine/Unit")
+			BaseName:String("Engine/Actor")
+		}
+		{
+			Name:String("Game/A")
+			BaseName:String("Engine/Actor")
+		}
+		{
+			Name:String("Game/B")
+			BaseName:String("Game/A")
+		}
+		{
+			Name:String("Game/C")
+			BaseName:String("Game/B")
+		}
+		{
+			Name:String("Game/Effects/ClickEffect")
+			BaseName:String("Engine/Actor")
+		}
+		{
+			Name:String("Game/Effects/Unit")
+			BaseName:String("Engine/Unit")
+		}
+	}
+}
