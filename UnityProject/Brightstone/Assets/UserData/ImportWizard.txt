@@ -22,5 +22,9 @@ $[ImportWizard,BaseWindow]
 			ExternalName:String("D:/Game Development/Private Assets/Artherion/Buildings/WorldTerrain/WorldTerrain.FBX")
 			InternalName:String("/Resources/Game/World/WorldTerrain.FBX")
 		}
+		{
+			ExternalName:String("D:/Game Development/Private Assets/Artherion/Buildings/WorldTerrain/Pyramid.FBX")
+			InternalName:String("/Resources/Game/World/Pyramid.FBX")
+		}
 	}
 }

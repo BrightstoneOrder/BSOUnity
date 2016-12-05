@@ -6,6 +6,10 @@ $[TypeMap,BaseObject]
 			BaseName:String("")
 		}
 		{
+			Name:String("Engine/HoverEffect")
+			BaseName:String("Engine/Actor")
+		}
+		{
 			Name:String("Engine/Unit")
 			BaseName:String("Engine/Actor")
 		}
@@ -28,6 +32,10 @@ $[TypeMap,BaseObject]
 		{
 			Name:String("Game/GameCamera")
 			BaseName:String("Engine/Actor")
+		}
+		{
+			Name:String("Game/Hovering Pyramid")
+			BaseName:String("Engine/HoverEffect")
 		}
 		{
 			Name:String("Game/Effects/ClickEffect")

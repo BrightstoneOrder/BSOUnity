@@ -115,7 +115,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Editor\Base\BaseEditor.cs" />
-    <Compile Include="Assets\Editor\Base\BaseMaterialEditor.cs" />
     <Compile Include="Assets\Editor\Base\BaseWindow.cs" />
     <Compile Include="Assets\Editor\Base\WorldEditor.cs" />
     <Compile Include="Assets\Editor\Common\EditorUtils.cs" />
@@ -170,6 +169,7 @@
     <None Include="Assets\Resources\Engine\Materials\ColorMaterials\SkewShader.shader" />
     <None Include="Assets\Scripts\Engine\Terrain\WorldTerrainShader.shader" />
     <None Include="Assets\Scripts\ReadMe.txt" />
+    <None Include="Assets\Shaders\UnlitTintTexture.shader" />
     <None Include="Assets\UserData\Game\Options.txt" />
     <None Include="Assets\UserData\ImportWizard.txt" />
     <None Include="Assets\UserData\RandomNames.txt" />

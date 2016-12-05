@@ -91,6 +91,7 @@ namespace Brightstone
 
         public float GetGameDelta() { return mGameDelta; }
         public float GetApplicationDelta() { return mApplicationDelta; }
+        public float GetTime() { return mGameElapsedTime; }
         public Camera GetGameCamera() { return Camera.main; }
         public InputMgr GetInputMgr() { return mInputMgr; }
         public OptionMgr GetOptionsMgr() { return mOptionMgr; }

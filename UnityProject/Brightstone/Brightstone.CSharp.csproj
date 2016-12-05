@@ -79,6 +79,7 @@
     <Compile Include="Assets\ProCore\ProBuilder\API Examples\Icosphere FFT\Scripts\IcoBumpin.cs" />
     <Compile Include="Assets\ProCore\ProBuilder\API Examples\Misc\HueCube.cs" />
     <Compile Include="Assets\ProCore\ProBuilder\API Examples\Runtime Editing\RuntimeEdit.cs" />
+    <Compile Include="Assets\ProCore\ProBuilder\Shader\BaseMaterialEditor.cs" />
     <Compile Include="Assets\Scripts\Base\BaseComponent.cs" />
     <Compile Include="Assets\Scripts\Base\BaseObject.cs" />
     <Compile Include="Assets\Scripts\Base\ComponentFlags.cs" />
@@ -102,6 +103,7 @@
     <Compile Include="Assets\Scripts\Base\TypeMgr.cs" />
     <Compile Include="Assets\Scripts\Base\World.cs" />
     <Compile Include="Assets\Scripts\Effects\ClickEffect.cs" />
+    <Compile Include="Assets\Scripts\Effects\HoverEffect.cs" />
     <Compile Include="Assets\Scripts\Engine\Actor.cs" />
     <Compile Include="Assets\Scripts\Engine\Game\ActionRPGMotionController.cs" />
     <Compile Include="Assets\Scripts\Engine\Game\BaseMotionController.cs" />
@@ -161,6 +163,7 @@
     <None Include="Assets\Resources\Engine\Materials\ColorMaterials\SkewShader.shader" />
     <None Include="Assets\Scripts\Engine\Terrain\WorldTerrainShader.shader" />
     <None Include="Assets\Scripts\ReadMe.txt" />
+    <None Include="Assets\Shaders\UnlitTintTexture.shader" />
     <None Include="Assets\UserData\Game\Options.txt" />
     <None Include="Assets\UserData\ImportWizard.txt" />
     <None Include="Assets\UserData\RandomNames.txt" />
