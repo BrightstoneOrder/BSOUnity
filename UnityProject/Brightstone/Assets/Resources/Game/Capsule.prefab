@@ -90,9 +90,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mType:
-    mEditorInstance: {fileID: 0}
-    mName: 
-    mBaseName: 
+    mEditorInstance: {fileID: 1000010818837930, guid: 315b3453aa286d54da81ff084592dea2,
+      type: 2}
+    mName: Game/Capsule
+    mBaseName: Engine/Unit
   mItemType:
     mEditorInstance: {fileID: 0}
     mName: 

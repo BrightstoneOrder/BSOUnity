@@ -19,6 +19,9 @@ namespace Brightstone
         /** List of internal editor variables. Editor ONLY!*/
         private List<EditorVariable> mEditorVariables = new List<EditorVariable>();
 #endif
+        // Cached world var. cached @ InternalInit before OnInit
+        protected World mWorld = null;
+
         /** Internal initialize method. Calling this will mark the component as initialized and it cannot be initialized again.*/
         public void InternalInit()
         {
@@ -27,9 +30,9 @@ namespace Brightstone
             {
                 return;
             }
-            // Cache component.
+            // Cache components
             mTransform = GetComponent<Transform>();
-
+            mWorld = World.ActiveWorld;
             // Set 'Type' flag.
 
             // Allow derived classes to initialize.
@@ -43,9 +46,10 @@ namespace Brightstone
             {
                 return;
             }
+            mFlags.Set(ComponentFlags.CF_GARBAGE);
             // Allow derived classes to destroy.
             OnDestroyed();
-            mFlags.Set(ComponentFlags.CF_GARBAGE);
+            
         }
 
         public void InternalRecycle()

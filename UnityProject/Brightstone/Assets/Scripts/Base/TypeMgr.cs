@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace Brightstone
 {
+    // Data class used for serilaizing type information.
     public class TypeData : BaseObject
     {
         public string name = string.Empty;
@@ -17,6 +18,9 @@ namespace Brightstone
 
     public class TypeMap : BaseObject
     {
+        // Prefab System...
+        // Init.. Load typemap.. eg Strings / ID
+
         private List<TypeData> mTypes = new List<TypeData>();
         private bool mLoaded = false;
         private bool mDirty = false;
@@ -112,113 +116,12 @@ namespace Brightstone
 
     public class TypeMgr 
 	{
-        public const string IMPORT_DATA_LOCATION = "/TypeMap2.txt";
-        // Consider using dictoinary when dealing with 5k + types.
-        private TypeMap mTypeMap = new TypeMap();
-        private List<ObjectType> mTypes = new List<ObjectType>();
-
-        /**
-         * Finds a type using their name.
-         * eg. FindType("ClickEffect")
-         *     FindType("/Effects/ClickEffect/ClickEffect")
-        */
-        public ObjectType FindType(string typename)
-        {
-            bool findWithScope = typename.IndexOf(ObjectType.SCOPE_CHAR) != -1;
-            if(findWithScope)
-            {
-                for(int i = 0; i < mTypes.Count; ++i)
-                {
-                    if(mTypes[i].GetFullName() == typename)
-                    {
-                        return mTypes[i];
-                    }
-                }
-            }
-            else
-            {
-                for(int i = 0; i <mTypes.Count; ++i)
-                {
-                    if(mTypes[i].GetName() == typename)
-                    {
-                        return mTypes[i];
-                    }
-                }
-            }
-            return null;
-        }
-
-        /**
-         * Finds a type using their id.
-         */
-        public ObjectType FindType(int id)
-        {
-            if (id >= 0 && id < mTypes.Count)
-            {
-                return mTypes[id];
-            }
-            return null;
-        }
-        
-        // Is a derived from b
-        public bool IsDerived(ObjectType a, ObjectType b)
-        {
-            ObjectType typeA = FindType(a.GetFullName());
-            ObjectType typeB = FindType(b.GetFullName());
-            ObjectType it = typeB;
-            while(it != null && it.GetBaseType() != null)
-            {
-                if(it == typeA)
-                {
-                    return true;
-                }
-                it = typeB.GetBaseType();
-            }
-            return false;
-        }
-
-        public void Init()
-        {
-            mTypeMap.Load();
-        }
-
-        public void Shutdown(bool save)
-        {
-            if(save)
-            {
-                // SaveTypeMap();
-            }
-            mTypes = null;
-            mTypeMap = new TypeMap();
-        }
-        
-
-        
-
-        private void InternalCreateType(string derived, string type, int id)
-        {
-            
-        }
-
-        private void InitActor(GameObject gameObject)
-        {
-
-        }
-
-        private void DestroyActor(GameObject gameObject)
-        {
-
-        }
-
-        // Prefab System...
-        // Init.. Load typemap.. eg Strings / ID
-
         public class Flyweight
         {
             private string mName = string.Empty;
             private int mNameId = -1;
             private GameObject mInstance = null;
-            private List<GameObject> mInstances = new List<GameObject>();
+            private List<Actor> mInstances = new List<Actor>();
             private ResourceRequest mLoadRequest = null;
 
 
@@ -254,12 +157,12 @@ namespace Brightstone
             public GameObject GetInstance() { return mInstance; }
             public void SetInstance(GameObject instance)
             {
-                if(mInstance != null)
+                if (mInstance != null)
                 {
                     Log.Sys.Error("Cannot overwrite Flyweight instance.");
                     return;
                 }
-                if(instance == null)
+                if (instance == null)
                 {
                     Log.Sys.Error("Cannot set null instance. Use Unload instead!");
                     return;
@@ -267,24 +170,29 @@ namespace Brightstone
                 mInstance = instance;
                 mNameId = mInstance.GetInstanceID();
             }
-            
-            public void RegisterInstance(GameObject instance)
+
+            public void CompleteLoad()
+            {
+                SetInstance(mLoadRequest.asset as GameObject);
+            }
+
+            public void RegisterInstance(Actor instance)
             {
                 mInstances.Add(instance);
             }
 
-            public void UnregisterInstance(GameObject instance)
+            public void UnregisterInstance(Actor instance)
             {
                 mInstances.Remove(instance);
             }
 
             /** Read only please, no Add/Remove */
-            public List<GameObject> GetInstances() { return mInstances; }
+            public List<Actor> GetInstances() { return mInstances; }
 
             /** Update the flyweight.. Check on loading asset. */
             public void Update()
             {
-                if(mInstance != null && mLoadRequest != null)
+                if (mInstance != null && mLoadRequest != null)
                 {
                     Log.Sys.Error("Instance and Load request exist! Only one can survive!");
                     Purge();
@@ -292,7 +200,7 @@ namespace Brightstone
                     mInstance = null;
                 }
 
-                if(mLoadRequest != null && mLoadRequest.isDone)
+                if (mLoadRequest != null && mLoadRequest.isDone)
                 {
                     mInstance = mLoadRequest.asset as GameObject;
                     mLoadRequest = null;
@@ -306,7 +214,7 @@ namespace Brightstone
                 Purge();
                 mNameId = -1;
                 Resources.UnloadAsset(mInstance);
-                if(mInstance != null)
+                if (mInstance != null)
                 {
                     Object.Destroy(mInstance);
                     mInstance = null;
@@ -323,12 +231,12 @@ namespace Brightstone
             /** Destroy all instances! */
             private void Purge()
             {
-                for(int i = 0; i < mInstances.Count; ++i)
+                for (int i = 0; i < mInstances.Count; ++i)
                 {
-                    GameObject instance = mInstances[i];
-                    if(instance != null)
+                    Actor instance = mInstances[i];
+                    if (instance != null)
                     {
-                        World.ActiveWorld.GetTypeMgr().DestroyActor(instance);
+                        World.ActiveWorld.DestroyActor(instance);
                         Object.Destroy(instance);
                     }
                 }
@@ -339,19 +247,15 @@ namespace Brightstone
             /** Remove any null instances that weren't cleared out properly.*/
             private void CleanInstances()
             {
-                for(int i = mInstances.Count -1; i>=0; --i)
+                for (int i = mInstances.Count - 1; i >= 0; --i)
                 {
-                    if(mInstances[i] == null)
+                    if (mInstances[i] == null)
                     {
                         mInstances.RemoveAt(i);
                     }
                 }
             }
-
-            
-            
         }
-
         public enum LoadMode
         {
             /** Don't load if its not loaded yet. */
@@ -362,8 +266,124 @@ namespace Brightstone
             LM_ASYNC_LOAD,
         }
 
-        private List<Flyweight> mFlyweights = new List<Flyweight>();
+        
+        // TypeMgr:
+
+        public const string IMPORT_DATA_LOCATION = "/TypeMap2.txt";
+        // Consider using dictoinary when dealing with 5k + types.
+        private TypeMap mTypeMap = new TypeMap();
+        //private List<ObjectType> mTypes = new List<ObjectType>();
+        private ObjectType[] mTypes = null;
+        private Flyweight[] mFlyweights = null;
         private List<Flyweight> mPendingLoads = new List<Flyweight>();
+
+
+        public void Init()
+        {
+            // Load Type Map:
+            mTypeMap.Load();
+            
+            // Create Type & Flyweights:
+            List<TypeData> mapTypes = mTypeMap.GetTypes();
+            mTypes = new ObjectType[mapTypes.Count];
+            mFlyweights = new Flyweight[mapTypes.Count];
+            for (int i = 0; i < mapTypes.Count; ++i)
+            {
+                TypeData data = mapTypes[i];
+                InternalCreateType(data.baseName, data.name, i);
+            }
+
+            // Link Types:
+            for(int i = 0; i < mTypes.Length; ++i)
+            {
+                InternalLinkType(i);
+            }
+        }
+
+        private void InternalCreateType(string derived, string type, int id)
+        {
+            ObjectType objType = new ObjectType();
+            objType.InternalInit(derived, type, id);
+            mTypes[id] = objType;
+
+            Flyweight flyweight = new Flyweight();
+            flyweight.SetName(type);
+            flyweight.SetNameId(id);
+            mFlyweights[id] = flyweight;
+        }
+
+        private void InternalLinkType(int id)
+        {
+            ObjectType objType = mTypes[id];
+            if(string.IsNullOrEmpty(objType.GetBaseName()))
+            {
+                ObjectType baseType = FindType(objType.GetBaseName());
+                if(baseType != null)
+                {
+                    objType.Link(baseType);
+                }
+            }
+        }
+
+        /**
+         * Finds a type using their name.
+         * eg. FindType("ClickEffect")
+         *     FindType("/Effects/ClickEffect/ClickEffect")
+        */
+        public ObjectType FindType(string typename)
+        {
+            bool findWithScope = typename.IndexOf(ObjectType.SCOPE_CHAR) != -1;
+            if(findWithScope)
+            {
+                for(int i = 0; i < mTypes.Length; ++i)
+                {
+                    if(mTypes[i].GetFullName() == typename)
+                    {
+                        return mTypes[i];
+                    }
+                }
+            }
+            else
+            {
+                for(int i = 0; i <mTypes.Length; ++i)
+                {
+                    if(mTypes[i].GetName() == typename)
+                    {
+                        return mTypes[i];
+                    }
+                }
+            }
+            return null;
+        }
+
+        /**
+         * Finds a type using their id.
+         */
+        public ObjectType FindType(int id)
+        {
+            if (id >= 0 && id < mTypes.Length)
+            {
+                return mTypes[id];
+            }
+            return null;
+        }
+        
+        // Is a derived from b
+        public bool IsDerived(ObjectType a, ObjectType b)
+        {
+            ObjectType typeA = FindType(a.GetFullName());
+            ObjectType typeB = FindType(b.GetFullName());
+            ObjectType it = typeB;
+            while(it != null && it.GetBaseType() != null)
+            {
+                if(it == typeA)
+                {
+                    return true;
+                }
+                it = typeB.GetBaseType();
+            }
+            return false;
+        }
 
 
         /**
@@ -376,13 +396,13 @@ namespace Brightstone
         private Flyweight GetFlyweight(Prefab prefab)
         {
             int id = prefab.GetFlyweightId();
-            if (id < 0 || id >= mFlyweights.Count)
+            if (id < 0 || id >= mFlyweights.Length)
             {
                 id = -1;
             }
             if(id == -1)
             {
-                for(int i = 0; i < mFlyweights.Count; ++i)
+                for(int i = 0; i < mFlyweights.Length; ++i)
                 {
                     if(mFlyweights[i].GetName() == prefab.GetName())
                     {
@@ -392,6 +412,16 @@ namespace Brightstone
                 }
             }
             else
+            {
+                return mFlyweights[id];
+            }
+            return null;
+        }
+
+
+        private Flyweight GetFlyweight(int id)
+        {
+            if (id >= 0 && id < mFlyweights.Length)
             {
                 return mFlyweights[id];
             }
@@ -499,6 +529,80 @@ namespace Brightstone
                     }
                     break;
             }
+        }
+
+        public Actor CreateInstance(Prefab prefab)
+        {
+            // Valid Check:
+            if(prefab == null || !prefab.IsLoaded())
+            {
+                return null;
+            }
+            Flyweight flyweight = GetFlyweight(prefab);
+            if(flyweight == null || flyweight.GetInstance() == null)
+            {
+                return null;
+            }
+            // TODO: Check if flyweight is broken, ie doesnt have actor.
+
+            // Create Clone:
+            GameObject clone = Object.Instantiate<GameObject>(flyweight.GetInstance());
+            if(clone == null)
+            {
+                return null;
+            }
+            clone.name = clone.name.Substring(0, clone.name.Length - 7);
+            
+            Actor actor = clone.GetComponent<Actor>();
+            flyweight.RegisterInstance(actor);
+            actor.InternalInitType(FindType(prefab.GetFlyweightId()));
+            actor.InternalInit();
+            return actor;
+        }
+
+        public void DestroyInstance(Actor instance)
+        {
+            if(instance != null && !instance.IsGarbage() && instance.GetObjectType() != null)
+            {
+                ObjectType type = instance.GetObjectType();
+                Flyweight flyweight = GetFlyweight(type.GetID());
+                if (flyweight != null)
+                {
+                    flyweight.UnregisterInstance(instance);
+                }
+                instance.InternalDestroy();
+                Object.Destroy(instance.gameObject);
+            }
+        }
+
+        public void UnregisterInstance(Actor instance)
+        {
+            if(instance != null)
+            {
+                ObjectType type = instance.GetObjectType();
+                Flyweight flyweight = GetFlyweight(type.GetID());
+                if (flyweight != null)
+                {
+                    flyweight.UnregisterInstance(instance);
+                }
+            }
+        }
+
+
+        public void InternalUpdate()
+        {
+            // Check Pending Loads..
+            for(int i = mPendingLoads.Count-1; i >=0; --i)
+            {
+                Flyweight flyweight = mPendingLoads[i];
+                if (!flyweight.IsLoading() && flyweight.IsAsyncLoading())
+                {
+                    mPendingLoads.RemoveAt(i);
+                    Log.Sys.Info("Finished loading " + flyweight.GetName());
+                    flyweight.CompleteLoad();
+                }
+            }
+
         }
 	}
 }

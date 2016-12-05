@@ -74,7 +74,7 @@ namespace Brightstone
 
         public void InternalInit(string baseType, string fullname, int id)
         {
-            if(fullname == string.Empty || fullname[0] != SCOPE_CHAR)
+            if(fullname == string.Empty)
             {
                 Log.Sys.Info("ObjectType.InternalInit has invalid fullname. Fullname=" + fullname);
                 return;

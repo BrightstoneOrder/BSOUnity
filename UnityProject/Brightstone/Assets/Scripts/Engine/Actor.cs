@@ -6,15 +6,11 @@ namespace Brightstone
 {
 	public class Actor : BaseComponent 
 	{
-        // [ObjectTypeView]
-        // [SerializeField]
-        // private ObjectType mType = null;
-
         [PrefabView]
         [SerializeField]
         private Prefab mType = null;
         private List<SubComponent> mSubComponents = new List<SubComponent>();
-
+        private ObjectType mObjectType = null;
         /**
         * Get the root Actor on the given 'transform'
         */
@@ -44,7 +40,15 @@ namespace Brightstone
 
         protected override void OnRecycle()
         {
-            // mType = null;
+            mObjectType = null;
+        }
+
+        protected override void OnDestroyed()
+        {
+            if(mWorld != null)
+            {
+                mWorld.GetTypeMgr().UnregisterInstance(this);
+            }
         }
 
         public bool IsType(ObjectType type)
@@ -53,10 +57,30 @@ namespace Brightstone
         }
 
         public List<SubComponent> GetSubComponents() { return mSubComponents; }
-        public ObjectType GetObjectType() { return null; }
+        public ObjectType GetObjectType() { return mObjectType; }
         public Prefab GetObjectPrefabType() { return mType; }
 
         /** Called internally by editor and game*/
-        public void InternalInitType(ObjectType type) { }
+        public void InternalInitType(ObjectType type) { mObjectType = type; }
+
+        public void SetPosition(Vector3 position)
+        {
+            GetTransform().position = position;
+        }
+
+        public Vector3 GetPosition()
+        {
+            return GetTransform().position;
+        }
+
+        public void SetRotation(Quaternion rotation)
+        {
+            GetTransform().rotation = rotation;
+        }
+
+        public Quaternion GetRotation()
+        {
+            return GetTransform().rotation;
+        }
     }
 }

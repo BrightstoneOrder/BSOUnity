@@ -137,12 +137,34 @@ namespace Brightstone
             SerializedProperty nameProp = property.FindPropertyRelative("mName");
             SerializedProperty baseNameProp = property.FindPropertyRelative("mBaseName");
             TypeMap map = GetTypeMap();
+            PrefabViewAttribute view = attribute as PrefabViewAttribute;
+            string constraintName = view.constraint.Name;
             // Our type... is what is selected if were a prefab.
 
             string originalName = nameProp.stringValue;
 
-            editorInstanceProp.objectReferenceValue = EditorGUI.ObjectField(position, "Set Type", editorInstanceProp.objectReferenceValue, typeof(GameObject), false) as GameObject;
+            editorInstanceProp.objectReferenceValue = EditorGUI.ObjectField(position, "Set Type (" + constraintName + ")", editorInstanceProp.objectReferenceValue, typeof(GameObject), false) as GameObject;
             GameObject target = editorInstanceProp.objectReferenceValue as GameObject;
+            if(target == null)
+            {
+                return;
+            }
+            if(!EditorUtils.IsPrefab(target))
+            {
+                Log.Sys.Error("Set type must be a prefab!");
+                editorInstanceProp.objectReferenceValue = null;
+                return;
+            }
+            
+            Actor actor = target.GetComponent(view.constraint) as Actor;
+            if(actor == null)
+            {
+                Log.Sys.Error("Set type must be a " + constraintName);
+                editorInstanceProp.objectReferenceValue = null;
+                return;
+            }
+
+
             if(target != null && EditorUtils.IsPrefab(target))
             {
                 string path = AssetDatabase.GetAssetPath(target);

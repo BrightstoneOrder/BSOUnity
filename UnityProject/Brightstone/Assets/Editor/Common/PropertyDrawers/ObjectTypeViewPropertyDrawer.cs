@@ -125,7 +125,7 @@ namespace Brightstone
                         Log.Sys.Warning("Creating a TypeMgr. Use the wizard window to speed this process up.");
                         mgr.Init();
                         isDerived = mgr.IsDerived(type, selectedType);
-                        mgr.Shutdown(false);
+                        
                         // End TODO:
 
                         if (isDerived && type.GetBaseName() != string.Empty)

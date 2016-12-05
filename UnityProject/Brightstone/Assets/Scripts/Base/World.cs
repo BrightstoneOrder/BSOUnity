@@ -69,6 +69,7 @@ namespace Brightstone
             UpdateTime();
             mInputMgr.Update(this);
             mPhysicsMgr.Update(this);
+            mTypeMgr.InternalUpdate();
         }
 
         private void UpdateTime()
@@ -95,5 +96,26 @@ namespace Brightstone
         public OptionMgr GetOptionsMgr() { return mOptionMgr; }
         public PhysicsMgr GetPhysicsMgr() { return mPhysicsMgr; }
         public TypeMgr GetTypeMgr() { return mTypeMgr; }
+
+        // TODO: Maybe entity list bookkeeping n stuff.
+        public Actor CreateActor(Prefab prefab)
+        {
+            return mTypeMgr.CreateInstance(prefab);
+        }
+
+        public T Create<T>(Prefab prefab) where T : Actor
+        {
+            return mTypeMgr.CreateInstance(prefab) as T;
+        }
+
+        // public Actor CloneActor(Actor actor)
+        // {
+        //     return mTypeMgr.CreateInstance(actor.GetObjectPrefabType());
+        // }
+
+        public void DestroyActor(Actor actor)
+        {
+            mTypeMgr.DestroyInstance(actor);
+        }
 	}
 }
