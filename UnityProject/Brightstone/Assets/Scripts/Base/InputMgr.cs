@@ -134,6 +134,9 @@ namespace Brightstone
             RegisterMouse(InputCode.IC_PLAYER_CLICK, InputButton.IB_LEFT);
             // TODO: Modify bindings with user data..
             // eg. Look for "IC_PLAYER_MOVE_VERTICAL.PrimaryKey and IC_PLAYER_MOVE_HORIZONTAL.SecondaryKey"
+
+            RegisterDualAxis(InputCode.IC_PLAYER_MOVE_VERTICAL, KeyCode.W, KeyCode.S, 1.0f, true);
+            RegisterDualAxis(InputCode.IC_PLAYER_MOVE_HORIZONTAL, KeyCode.D, KeyCode.A, 1.0f, true);
         }
 
         public bool NativeGetKeyState(KeyCode keyCode)

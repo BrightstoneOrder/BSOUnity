@@ -30,6 +30,14 @@ namespace Brightstone
             return root;
         }
 
+        protected override void OnInit()
+        {
+            if(mWorld)
+            {
+                mWorld.GetTypeMgr().RegisterInstance(this);
+            }
+        }
+
         public virtual void OnUpdate(float delta)
         {
             for(int i = 0; i < mSubComponents.Count; ++i)

@@ -575,11 +575,33 @@ namespace Brightstone
             }
         }
 
+        // Called when an actor is created in an unconventional way. 
+        // (Ie level start)
+        public void RegisterInstance(Actor instance)
+        {
+            if(instance != null && instance.GetObjectPrefabType() != null && instance.GetObjectType() == null)
+            {
+                Prefab prefab = instance.GetObjectPrefabType();
+                Flyweight flyweight = GetFlyweight(prefab);
+                if(flyweight != null)
+                {
+                    instance.InternalInitType(FindType(flyweight.GetNameId()));
+                }
+            }
+        }
+
+        // Called when an actor is destroyed in an unconventional way.
+        // (Ie level shutdown)
         public void UnregisterInstance(Actor instance)
         {
             if(instance != null)
             {
                 ObjectType type = instance.GetObjectType();
+                if(type == null)
+                {
+                    int c = 0;
+                    if (c == 1) { }
+                }
                 Flyweight flyweight = GetFlyweight(type.GetID());
                 if (flyweight != null)
                 {

@@ -13,13 +13,11 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.4.1f1</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -81,7 +79,6 @@
     <Compile Include="Assets\ProCore\ProBuilder\API Examples\Icosphere FFT\Scripts\IcoBumpin.cs" />
     <Compile Include="Assets\ProCore\ProBuilder\API Examples\Misc\HueCube.cs" />
     <Compile Include="Assets\ProCore\ProBuilder\API Examples\Runtime Editing\RuntimeEdit.cs" />
-    <Compile Include="Assets\Scripts\Base\BaseCamera.cs" />
     <Compile Include="Assets\Scripts\Base\BaseComponent.cs" />
     <Compile Include="Assets\Scripts\Base\BaseObject.cs" />
     <Compile Include="Assets\Scripts\Base\ComponentFlags.cs" />
@@ -106,15 +103,15 @@
     <Compile Include="Assets\Scripts\Base\World.cs" />
     <Compile Include="Assets\Scripts\Effects\ClickEffect.cs" />
     <Compile Include="Assets\Scripts\Engine\Actor.cs" />
-    <Compile Include="Assets\Scripts\Engine\Camera2D.cs" />
     <Compile Include="Assets\Scripts\Engine\Game\ActionRPGMotionController.cs" />
     <Compile Include="Assets\Scripts\Engine\Game\BaseMotionController.cs" />
+    <Compile Include="Assets\Scripts\Engine\Game\GameCamera.cs" />
     <Compile Include="Assets\Scripts\Engine\Game\Option.cs" />
     <Compile Include="Assets\Scripts\Engine\Game\OptionMgr.cs" />
     <Compile Include="Assets\Scripts\Engine\Game\OptionName.cs" />
     <Compile Include="Assets\Scripts\Engine\Game\OptionType.cs" />
-    <Compile Include="Assets\Scripts\Engine\Game\UnitSpawner.cs" />
     <Compile Include="Assets\Scripts\Engine\Game\Unit.cs" />
+    <Compile Include="Assets\Scripts\Engine\Game\UnitSpawner.cs" />
     <Compile Include="Assets\Scripts\Engine\Streams\BaseStream.cs" />
     <Compile Include="Assets\Scripts\Engine\Streams\NestedObject.cs" />
     <Compile Include="Assets\Scripts\Engine\Streams\NumericalStream.cs" />

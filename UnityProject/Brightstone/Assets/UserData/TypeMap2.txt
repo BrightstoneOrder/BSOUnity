@@ -26,6 +26,10 @@ $[TypeMap,BaseObject]
 			BaseName:String("Engine/Unit")
 		}
 		{
+			Name:String("Game/GameCamera")
+			BaseName:String("Engine/Actor")
+		}
+		{
 			Name:String("Game/Effects/ClickEffect")
 			BaseName:String("Engine/Actor")
 		}
