@@ -245,9 +245,9 @@ namespace Brightstone
             {
                 ImportData element = list.list[index] as ImportData;
                 EditorGUI.LabelField(new Rect(rect.x, rect.y, NAME_WIDTH, singleLineHeight), "External:");
-                EditorGUI.TextField(new Rect(rect.x + NAME_WIDTH, rect.y, VAR_WIDTH, singleLineHeight), element.externalName);
+                element.externalName = EditorGUI.TextField(new Rect(rect.x + NAME_WIDTH, rect.y, VAR_WIDTH, singleLineHeight), element.externalName);
                 EditorGUI.LabelField(new Rect(rect.x, rect.y + singleLineHeight, NAME_WIDTH, singleLineHeight), "Internal:");
-                EditorGUI.TextField(new Rect(rect.x + NAME_WIDTH, rect.y + singleLineHeight, VAR_WIDTH, singleLineHeight), element.internalName);
+                element.internalName = EditorGUI.TextField(new Rect(rect.x + NAME_WIDTH, rect.y + singleLineHeight, VAR_WIDTH, singleLineHeight), element.internalName);
             };
             list.elementHeight = EditorGUIUtility.singleLineHeight * 2.0f;
 

@@ -124,6 +124,7 @@
     <Compile Include="Assets\Scripts\Engine\Streams\StreamTest.cs" />
     <Compile Include="Assets\Scripts\Engine\Streams\TextStream.cs" />
     <Compile Include="Assets\Scripts\Engine\SubComponent.cs" />
+    <Compile Include="Assets\Scripts\Engine\Terrain\WorldTerrain.cs" />
     <Compile Include="Assets\Scripts\Engine\TileMap.cs" />
     <Compile Include="Assets\Scripts\Interface\UIBarGraph.cs" />
     <Compile Include="Assets\Scripts\Physics\KinematicBox.cs" />
@@ -159,6 +160,7 @@
     <None Include="Assets\ProCore\ProBuilder\Shader\pb_VertexShader.shader" />
     <None Include="Assets\ProCore\ProBuilder\readme.txt" />
     <None Include="Assets\Resources\Engine\Materials\ColorMaterials\SkewShader.shader" />
+    <None Include="Assets\Scripts\Engine\Terrain\WorldTerrainShader.shader" />
     <None Include="Assets\Scripts\ReadMe.txt" />
     <None Include="Assets\UserData\Game\Options.txt" />
     <None Include="Assets\UserData\ImportWizard.txt" />

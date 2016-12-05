@@ -18,5 +18,9 @@ $[ImportWizard,BaseWindow]
 			ExternalName:String("D:/Game Development/Private Assets/Artherion/Props/Torch/Torch_d.png")
 			InternalName:String("/Props/Torch/Torch_d.png")
 		}
+		{
+			ExternalName:String("D:/Game Development/Private Assets/Artherion/Buildings/WorldTerrain/WorldTerrain.FBX")
+			InternalName:String("/Resources/Game/World/WorldTerrain.FBX")
+		}
 	}
 }

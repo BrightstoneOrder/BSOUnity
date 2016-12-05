@@ -52,3 +52,8 @@ HumanPlayer : human player class which handles inputs and translates that into g
 - Provide networking to have a player move
 - Provide animation for the players movement
 - Player movement { Idle, Walk, Run, Strafe, Roll, Block, }
+
+
+
+--- Defense...
+-

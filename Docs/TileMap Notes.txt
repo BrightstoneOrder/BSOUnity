@@ -1,0 +1,162 @@
+struct TileId
+{
+	int x;
+	int y;
+}
+
+enum SideId
+{
+	SID_LEFT,
+	SID_RIGHT,
+	SID_TOP,
+	SID_BOTTOM
+}
+
+enum SideType
+{
+	ST_NORMAL,
+	ST_DETAIL,
+	ST_RAMP_SIDE,
+	ST_RAMP_END,
+	ST_RAMP_START
+}
+
+
+
+struct Side
+{	
+	bool isDetail;
+	Tile parent;
+};
+
+
+struct Tile
+{
+	TileId id;
+	bool isRamp;
+	SideId rampTarget;
+	float height;
+	Side[4] sides;
+	Tile[4] neighbors;
+
+	SideId GetRelativeId(SideId id)
+	{
+		switch(id)
+		{
+			case SID_LEFT: return SID_RIGHT;
+			case SID_RIGHT: return SID_LEFT;
+			case SID_TOP: return SID_BOTTOM;
+			case SID_BOTTOM: return SID_TOP;
+		}
+		return SID_TOP;
+	}
+
+	SideType GetSideType(SideId id)
+	{
+		if(neighbors[id] == null)
+		{
+			return ST_NORMAL;
+		}
+		if(neighbors[id].isRamp)
+		{
+			SideId relativeId = GetRelativeId(id)
+			if(relativeId == neighbors[id].id)
+			{
+				return ST_RAMP_END;
+			}
+			else if(id == neighbors[id].id) // opposite side?
+			{
+				return ST_RAMP_START;
+			}
+			else
+			{
+				return ST_RAMP_SIDE;
+			}
+		}
+		else if(height > neighbors[id].height)
+		{
+			 return sides[id].isDetail ? ST_DETAIL : ST_NORMAL;
+		}
+		return ST_NORMAL;
+	}
+};
+
+struct FaceInfo
+{
+	SideType type;
+	SideId sideId;
+	TileId tileId;
+}
+
+struct TileInfo
+{
+	Vector[] vertices;
+	Vector[] uvs;
+	Int[] drawOrder;
+}
+
+TileInfo NORMAL_FACE;
+TileInfo DETAIL_FACE;
+TileInfo NO_FACE;
+
+TileInfo CompileFace(FaceInfo face)
+{
+	if(face.type == ST_NORMAL || face.type == ST_RAMP_SIDE)
+	{
+		return NORMAL_FACE.Copy();
+	}
+	else if(face.type == ST_RAMP_END)
+	{
+		return NO_FACE.Copy();
+	}
+	return DETAIL_FACE.Copy();
+}
+
+
+void CompileTile(Tile tile, Mesh mesh)
+{
+	// Figure out how we construct each face.
+	FaceInfo top { type = tile.GetSideType(SID_TOP), sideId = SID_TOP, tileId = tile.id};
+	FaceInfo bottom = {type = tile.GetSideType(SID_BOTTOM), sideId = SID_BOTTOM, tileId = tile.id};
+	FaceInfo left = {type = tile.GetSideType(SID_LEFT), sideId = SID_LEFT, tileId = tile.id};
+	FaceInfo right = {type = tile.GetSideType(SID_RIGHT), sideId = SID_RIGHT, tileId = tile.id};
+
+	// Generate the "mesh" data from faces.
+	FaceInfo faces[] = { top, bottom, left, right};
+	TileInfo tileInfos[];
+	foreach(f, faces)
+	{
+		TileInfo info = CompileFace(f);
+		tileInfos.Add(info);
+	}
+
+	// Calculate top verts and bounds to cap it.
+	Vector[] topVerices = CalcTopVertices(tileInfos);
+	Bounds bounds = CalcBounds(topVerices);
+	Vector pivot = bounds.center;
+
+	// Generate the "mesh" data for the cap.
+	TileInfo center;
+	foreach(v, topVerices)
+	{
+		center.vertices.Add(v);
+		center.uvs.Add(CalcUv(v, bounds));
+		center.drawOrder.Add(n);
+		center.drawOrder.Add(n+1);
+		center.drawOrder.Add(topVerices.Length);
+	}
+
+	// Add mesh data to the mesh
+	tileInfos.Add(center);
+	AggregateMesh(tileInfos, mesh);
+}
+
+void CompileMesh(TileId min, TileId max, Mesh mesh)
+{
+
+	foreach(Tile tile : min > max)
+	{
+		CompileTile(tile, mesh);
+	}
+
+}

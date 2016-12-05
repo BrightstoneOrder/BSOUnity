@@ -115,6 +115,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Editor\Base\BaseEditor.cs" />
+    <Compile Include="Assets\Editor\Base\BaseMaterialEditor.cs" />
     <Compile Include="Assets\Editor\Base\BaseWindow.cs" />
     <Compile Include="Assets\Editor\Base\WorldEditor.cs" />
     <Compile Include="Assets\Editor\Common\EditorUtils.cs" />
@@ -123,6 +124,7 @@
     <Compile Include="Assets\Editor\Common\PropertyDrawers\PrefabViewPropertyDrawer.cs" />
     <Compile Include="Assets\Editor\Common\TypeWizard.cs" />
     <Compile Include="Assets\Editor\Engine\ActorEditor.cs" />
+    <Compile Include="Assets\Editor\Engine\Terrain\WorldTerrainMaterialEditor.cs" />
     <Compile Include="Assets\Editor\Engine\TileMapEditor.cs" />
     <Compile Include="Assets\ProCore\ProBuilder\API Examples\Editor\CustomAction.cs" />
     <Compile Include="Assets\ProCore\ProBuilder\API Examples\Editor\EditorCallbackViewer.cs" />
@@ -166,6 +168,7 @@
     <None Include="Assets\ProCore\ProBuilder\Shader\pb_VertexShader.shader" />
     <None Include="Assets\ProCore\ProBuilder\readme.txt" />
     <None Include="Assets\Resources\Engine\Materials\ColorMaterials\SkewShader.shader" />
+    <None Include="Assets\Scripts\Engine\Terrain\WorldTerrainShader.shader" />
     <None Include="Assets\Scripts\ReadMe.txt" />
     <None Include="Assets\UserData\Game\Options.txt" />
     <None Include="Assets\UserData\ImportWizard.txt" />
