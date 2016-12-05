@@ -44,16 +44,20 @@ namespace Brightstone
 
         protected override void OnInit()
         {
+            Log.Sys.Info("Starting Options Mgr...");
             mOptionMgr = new OptionMgr();
             mOptionMgr.Init();
 
+            Log.Sys.Info("Starting Type Mgr...");
             mTypeMgr = new TypeMgr();
             mTypeMgr.Init();
 
+            Log.Sys.Info("Starting Input Mgr...");
             mClock.Start();
             mInputMgr = new InputMgr();
             mInputMgr.Init(this);
 
+            Log.Sys.Info("Starting Physics Mgr...");
             mPhysicsMgr = new PhysicsMgr();
             mPhysicsMgr.Init();
 

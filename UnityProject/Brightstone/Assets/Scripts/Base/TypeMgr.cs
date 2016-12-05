@@ -117,89 +117,6 @@ namespace Brightstone
         private TypeMap mTypeMap = new TypeMap();
         private List<ObjectType> mTypes = new List<ObjectType>();
 
-        private void LoadTypeMap()
-        {
-            /*
-            string path = Util.GetUserDataDirectory(IMPORT_DATA_LOCATION);
-            if(System.IO.File.Exists(path))
-            {
-                string allText = System.IO.File.ReadAllText(path);
-                TextStream stream = new TextStream();
-                stream.SetReadingMode(true);
-                stream.ParseText(allText);
-                stream.NextContext();
-                mTypeMap.Serialize(stream);
-                stream.StopContext();
-            }
-            // TODO: Linking & Verifying
-            List<ObjectType> types = mTypeMap.GetTypes();
-            mTypes = new List<ObjectType>(types);
-            
-            // Verify
-            for(int i = 0; i < mTypes.Count; ++i)
-            {
-                mTypes[i] = null;
-            }
-            
-            for (int i = 0; i < mTypes.Count; ++i)
-            {
-                int index = types[i].GetID();
-                if(index < 0 || index >= mTypes.Count)
-                {
-                    Log.Sys.Error("Failed to verify type because id is out of range! Type=" + types[i].GetFullName() + ", Id=" + types[i].GetID() + ", ID should be " + i);
-                }
-                else if(mTypes[i] != null)
-                {
-                    Log.Sys.Error("Failed to verify type because a type with the id already exists! Existing Type=" + mTypes[i].GetFullName() + ", Type=" + types[i].GetFullName() + ", Id=" + i);
-                }
-                else
-                {
-                    mTypes[i] = types[i];
-                }
-            }
-
-#if !BS_TYPE_VERIFY
-            for(int i = 0; i < mTypes.Count; ++i)
-            {
-                for(int j = 0; j < mTypes.Count; ++j)
-                {
-                    if(i == j)
-                    {
-                        continue;
-                    }
-                    if(mTypes[i].GetFullName() == mTypes[j].GetFullName())
-                    {
-                        Log.Sys.Error("Two types exist with the same name. Lhs=" + i + ", Rhs=" + j + ", Name=" + mTypes[i].GetFullName());
-                    }
-                }
-            }
-#endif
-
-            // Link
-            for(int i = 0; i < mTypes.Count; ++i)
-            {
-                string baseName = mTypes[i].GetBaseName();
-                if(mTypes[i].GetFullName() == "/Engine/Actor")
-                {
-                    continue;
-                }
-                if(string.IsNullOrEmpty(baseName))
-                {
-                    Log.Sys.Error("Failed to link type " + mTypes[i].GetFullName() + "[" + mTypes[i].GetID() + "]. Missing base name.");
-                    continue;
-                }
-                ObjectType type = FindType(baseName);
-                if(type == null)
-                {
-                    Log.Sys.Error("Failed to link type " + mTypes[i].GetFullName() + "[" + mTypes[i].GetID() + "]. Missing base type.");
-                    continue;
-                }
-
-                mTypes[i].Link(type);
-            }*/
-
-        }
-
         /**
          * Finds a type using their name.
          * eg. FindType("ClickEffect")
@@ -260,21 +177,9 @@ namespace Brightstone
             return false;
         }
 
-        private void SaveTypeMap()
-        {
-            string path = Util.GetUserDataDirectory(IMPORT_DATA_LOCATION);
-            TextStream stream = new TextStream();
-            stream.SetReadingMode(false);
-            stream.StartContext("TypeMap", "BaseObject");
-            mTypeMap.Serialize(stream);
-            stream.StopContext();
-            string allText = stream.WriteText();
-            System.IO.File.WriteAllText(path, allText);
-        }
-
         public void Init()
         {
-            LoadTypeMap();
+            mTypeMap.Load();
         }
 
         public void Shutdown(bool save)

@@ -5,15 +5,15 @@ namespace Brightstone
 {
     public class Spawner : BaseComponent
     {
-        // TODO: Change this to a ObjectType and create with "World"
-        [SerializeField] 
-        private GameObject mPrefab = null;
         [SerializeField]
         private float mSpawnDelay = 0.0f;
         [SerializeField]
         private float mSpawnInterval = 0.0f;
         [SerializeField]
         private int mMaxSpawn = 0;
+        [PrefabView]
+        [SerializeField]
+        private Prefab mSpawnType;
 
         private bool mSpawnedFirst = false;
         private Timer mSpawnTimer = new Timer();
@@ -27,6 +27,17 @@ namespace Brightstone
         private void OnDestroy()
         {
             InternalDestroy();
+        }
+
+        protected override void OnInit()
+        {
+            base.OnInit();
+            Log.Game.Info("Initializing Spawner...");
+            if(mSpawnType != null)
+            {
+                mSpawnType.Prepare();
+            }
+            
         }
 
         private void Update()
@@ -52,15 +63,17 @@ namespace Brightstone
         {
             if(mSpawnedActors.Count < mMaxSpawn)
             {
-                GameObject go = Instantiate<GameObject>(mPrefab);
-                Transform xform = go.transform;
-                xform.position = GetTransform().position;
-                xform.rotation = GetTransform().rotation;
-                Actor actor = go.GetComponent(typeof(Actor)) as Actor;
-                if(actor != null)
-                {
-                    actor.InternalInit();
-                }
+                
+                // World.ActiveWorld.
+                // GameObject go = Instantiate<GameObject>(mPrefab);
+                // Transform xform = go.transform;
+                // xform.position = GetTransform().position;
+                // xform.rotation = GetTransform().rotation;
+                // Actor actor = go.GetComponent(typeof(Actor)) as Actor;
+                // if(actor != null)
+                // {
+                //     actor.InternalInit();
+                // }
             }
         }
         

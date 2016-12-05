@@ -65,8 +65,9 @@ namespace Brightstone
             string originalName = nameProp.stringValue;
             Actor actor = property.serializedObject.targetObject as Actor;
             GameObject selected = actor != null ? actor.gameObject : null;
-            if(selected)
+            if(selected && EditorUtils.IsPrefab(selected))
             {
+
                 string path = AssetDatabase.GetAssetPath(selected);
                 // int subIndex = 17; //  "Assets/Resources".Length;
                 // int extLength = 7; // ".prefab".Length;
@@ -142,7 +143,7 @@ namespace Brightstone
 
             editorInstanceProp.objectReferenceValue = EditorGUI.ObjectField(position, "Set Type", editorInstanceProp.objectReferenceValue, typeof(GameObject), false) as GameObject;
             GameObject target = editorInstanceProp.objectReferenceValue as GameObject;
-            if(target != null)
+            if(target != null && EditorUtils.IsPrefab(target))
             {
                 string path = AssetDatabase.GetAssetPath(target);
                 // int subIndex = 17; //  "Assets/Resources".Length;
@@ -152,8 +153,6 @@ namespace Brightstone
                 path = path.Substring(SUB_INDEX, path.Length - SUB_LENGTH);
                 nameProp.stringValue = path;
             }
-
-            GameObject baseObject = null;
 
             if(nameProp.stringValue != originalName)
             {

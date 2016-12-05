@@ -119,20 +119,16 @@ namespace Brightstone
                         Actor selectedActor = selectedObject.GetComponent(typeof(Actor)) as Actor;
                         ObjectType selectedType = selectedActor.GetObjectType();
                         bool isDerived = false;
-                        if (TypeWizard.sActiveWizard == null)
-                        {
-                            TypeMgr mgr = new TypeMgr();
-                            Log.Sys.Warning("Creating a TypeMgr. Use the wizard window to speed this process up.");
-                            mgr.Init();
-                            isDerived = mgr.IsDerived(type, selectedType);
-                            mgr.Shutdown(false);
-                        }
-                        else
-                        {
-                            isDerived = TypeWizard.sActiveWizard.GetTypeMgr().IsDerived(type, selectedType);
-                        }
-                        
-                        if(isDerived && type.GetBaseName() != string.Empty)
+
+                        // TODO: Make this faster
+                        TypeMgr mgr = new TypeMgr();
+                        Log.Sys.Warning("Creating a TypeMgr. Use the wizard window to speed this process up.");
+                        mgr.Init();
+                        isDerived = mgr.IsDerived(type, selectedType);
+                        mgr.Shutdown(false);
+                        // End TODO:
+
+                        if (isDerived && type.GetBaseName() != string.Empty)
                         {
                             Log.Sys.Error("Cannot set base, this would cause a cycle!");
                         }
