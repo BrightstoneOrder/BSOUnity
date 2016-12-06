@@ -130,6 +130,8 @@
     <Compile Include="Assets\Scripts\Engine\TileMap.cs" />
     <Compile Include="Assets\Scripts\Interface\UIBarGraph.cs" />
     <Compile Include="Assets\Scripts\Interface\UIBase.cs" />
+    <Compile Include="Assets\Scripts\Interface\UIImage.cs" />
+    <Compile Include="Assets\Scripts\Interface\UIMinimapCamera.cs" />
     <Compile Include="Assets\Scripts\Physics\KinematicBox.cs" />
     <Compile Include="Assets\Scripts\Physics\MathUtils.cs" />
     <Compile Include="Assets\Scripts\Physics\PhysicsMgr.cs" />
