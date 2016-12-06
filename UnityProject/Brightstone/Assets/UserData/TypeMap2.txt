@@ -6,11 +6,19 @@ $[TypeMap,BaseObject]
 			BaseName:String("")
 		}
 		{
+			Name:String("Engine/Grid")
+			BaseName:String("Engine/Actor")
+		}
+		{
 			Name:String("Engine/HoverEffect")
 			BaseName:String("Engine/Actor")
 		}
 		{
 			Name:String("Engine/Unit")
+			BaseName:String("Engine/Actor")
+		}
+		{
+			Name:String("Engine/Interface/UIBase")
 			BaseName:String("Engine/Actor")
 		}
 		{

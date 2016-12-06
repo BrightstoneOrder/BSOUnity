@@ -10,15 +10,19 @@
 		Tags { "RenderType"="Opaque" }
 		LOD 100
 
-		Pass
-		{
+		Pass    
+		{ 
+            Cull Off
 			CGPROGRAM
+            
+
 			#pragma vertex vert
 			#pragma fragment frag
 			// make fog work
 			#pragma multi_compile_fog
 			
 			#include "UnityCG.cginc"
+            
             
             // Vertex Data
 			struct IN_Vertex
@@ -32,7 +36,7 @@
 			{
 				float2 uv : TEXCOORD0;
 				UNITY_FOG_COORDS(1)
-				float4 vertex : SV_POSITION;
+				float4 pos : SV_POSITION;
 			};
 
 			sampler2D _MainTex;
@@ -42,9 +46,9 @@
 			IN_Pixel vert (IN_Vertex IN)
 			{
                 IN_Pixel OUT;
-                OUT.vertex = mul(UNITY_MATRIX_MVP, IN.pos);
+                OUT.pos = mul(UNITY_MATRIX_MVP, IN.pos);
 			    OUT.uv = TRANSFORM_TEX(IN.uv, _MainTex);
-				UNITY_TRANSFER_FOG(OUT,OUT.vertex);
+				UNITY_TRANSFER_FOG(OUT,OUT.pos);
 				return OUT;
 			}
 			

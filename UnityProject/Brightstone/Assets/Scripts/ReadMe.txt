@@ -55,5 +55,11 @@ HumanPlayer : human player class which handles inputs and translates that into g
 
 
 
---- Defense...
--
+--- Camera
+Camera : Actor 
+{
+
+}
+
+CameraInputHandler : RTS - TopDOWN
+CameraInputHandler : 3rd Person

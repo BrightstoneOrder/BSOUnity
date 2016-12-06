@@ -127,6 +127,17 @@ namespace Brightstone
             }
             return value;
         }
+
+        public static void Index2Coord(int index, int width, out int x, out int y)
+        {
+            x = index % width;
+            y = index / width;
+        }
+
+        public static void Coord2Index(int x, int y, int width, out int index)
+        {
+            index = x + width * y;
+        }
     }
 
 }

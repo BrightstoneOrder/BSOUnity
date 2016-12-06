@@ -170,6 +170,7 @@
     <None Include="Assets\Scripts\Engine\Terrain\WorldTerrainShader.shader" />
     <None Include="Assets\Scripts\ReadMe.txt" />
     <None Include="Assets\Shaders\UnlitTintTexture.shader" />
+    <None Include="Assets\Shaders\Wireframe.shader" />
     <None Include="Assets\UserData\Game\Options.txt" />
     <None Include="Assets\UserData\ImportWizard.txt" />
     <None Include="Assets\UserData\RandomNames.txt" />

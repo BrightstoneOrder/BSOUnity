@@ -14,7 +14,6 @@ namespace Brightstone
         [SerializeField]
         private float mMaxSpeed = 5.0f;
 
-        private Vector3 mPositionDelta = Vector3.zero;
         private Vector3 mMoveVelocity = Vector3.zero;
 
         private void Start()
