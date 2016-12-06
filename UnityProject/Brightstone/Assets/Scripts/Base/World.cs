@@ -10,6 +10,7 @@ namespace Brightstone
         OptionMgr mOptionMgr = null;
         PhysicsMgr mPhysicsMgr = null;
         TypeMgr mTypeMgr = null;
+        UIMgr mUIMgr = null;
 
         private Timer mClock = new Timer();
         private const float MAX_DELTA = 0.1f;
@@ -61,6 +62,9 @@ namespace Brightstone
             mPhysicsMgr = new PhysicsMgr();
             mPhysicsMgr.Init();
 
+            Log.Sys.Info("Starting UI Mgr...");
+            mUIMgr = new UIMgr();
+            mUIMgr.Init();
 
         }
 
@@ -70,6 +74,7 @@ namespace Brightstone
             mInputMgr.Update(this);
             mPhysicsMgr.Update(this);
             mTypeMgr.InternalUpdate();
+            mUIMgr.Update(this);
         }
 
         private void UpdateTime()
@@ -97,6 +102,7 @@ namespace Brightstone
         public OptionMgr GetOptionsMgr() { return mOptionMgr; }
         public PhysicsMgr GetPhysicsMgr() { return mPhysicsMgr; }
         public TypeMgr GetTypeMgr() { return mTypeMgr; }
+        public UIMgr GetUIMgr() { return mUIMgr; }
 
         // TODO: Maybe entity list bookkeeping n stuff.
         public Actor CreateActor(Prefab prefab)

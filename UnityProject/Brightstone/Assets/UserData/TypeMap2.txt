@@ -22,11 +22,19 @@ $[TypeMap,BaseObject]
 			BaseName:String("Engine/Actor")
 		}
 		{
+			Name:String("Engine/Interface/UIButton")
+			BaseName:String("Engine/Interface/UIBase")
+		}
+		{
 			Name:String("Engine/Interface/UIImage")
 			BaseName:String("Engine/Actor")
 		}
 		{
 			Name:String("Engine/Interface/UIMinimapCamera")
+			BaseName:String("Engine/Interface/UIBase")
+		}
+		{
+			Name:String("Engine/Interface/UITooltip")
 			BaseName:String("Engine/Interface/UIBase")
 		}
 		{
