@@ -139,6 +139,7 @@ MonoBehaviour:
       type: 2}
     mName: Engine/Interface/UITooltip
     mBaseName: Engine/Interface/UIBase
+  mElementName: 
 --- !u!114 &114000013434545900
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -60,12 +60,20 @@ namespace Brightstone
         [SerializeField]
         private string mBaseName = string.Empty;
         /** Flyweight type id handle.*/
-        private int mFlyweightId = -1;
+        private int mFlyweightId = Util.INVALID_INT;
 
         /** Prepare an asset for use in the future.*/
         public void Prepare()
         {
-            World.ActiveWorld.GetTypeMgr().LoadType(TypeMgr.LoadMode.LM_ASYNC_LOAD, this);
+            World activeWorld = World.ActiveWorld;
+            if(activeWorld.IsBatchLoading())
+            {
+                World.ActiveWorld.InternalBatchLoad(this);
+            }
+            else
+            {
+                World.ActiveWorld.GetTypeMgr().LoadType(TypeMgr.LoadMode.LM_ASYNC_LOAD, this);
+            }
         }
 
         /** Force an asset to be loaded now.*/

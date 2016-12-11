@@ -59,11 +59,27 @@ namespace Brightstone
             }
         }
 
+        
+
         public bool IsType(ObjectType type)
         {
             return type == GetObjectType();
         }
 
+        public bool IsType(Prefab prefab)
+        {
+            return IsType(mWorld.GetTypeMgr().FindType(prefab));
+        }
+
+        public bool IsA(ObjectType type)
+        {
+            return mWorld.GetTypeMgr().IsDerived(GetObjectType(), type);
+        }
+
+        public bool IsA(Prefab prefab)
+        {
+            return IsA(mWorld.GetTypeMgr().FindType(prefab));
+        }
         public List<SubComponent> GetSubComponents() { return mSubComponents; }
         public ObjectType GetObjectType() { return mObjectType; }
         public Prefab GetObjectPrefabType() { return mType; }

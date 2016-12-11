@@ -367,6 +367,20 @@ namespace Brightstone
             }
             return null;
         }
+
+        public ObjectType FindType(Prefab prefab)
+        {
+            if(prefab == null)
+            {
+                return null;
+            }
+            Flyweight flyweight = GetFlyweight(prefab);
+            if(flyweight != null)
+            {
+                return mTypes[flyweight.GetNameId()];
+            }
+            return null;
+        }
         
         // Is a derived from b
         public bool IsDerived(ObjectType a, ObjectType b)
@@ -453,7 +467,7 @@ namespace Brightstone
         {
             if (flyweight.GetInstance() != null)
             {
-                Log.Sys.Error("Failed to InternalLoadType! Flyweight is already loaded! Name=" + prefab.GetName());
+                //Log.Sys.Error("Failed to InternalLoadType! Flyweight is already loaded! Name=" + prefab.GetName());
                 return;
             }
             if (flyweight.HasInstances())
@@ -463,7 +477,7 @@ namespace Brightstone
             }
             if (flyweight.IsAsyncLoading())
             {
-                Log.Sys.Error("Failed to InternalLoadType! Flyweight is already being loaded! Name=" + prefab.GetName());
+                //Log.Sys.Error("Failed to InternalLoadType! Flyweight is already being loaded! Name=" + prefab.GetName());
                 return;
             }
 
@@ -625,6 +639,42 @@ namespace Brightstone
                 }
             }
 
+        }
+
+        public void UnloadFreeResources()
+        {
+            for(int i = 0; i < mFlyweights.Length; ++i)
+            {
+                Flyweight flyweight = mFlyweights[i];
+                if(flyweight.IsLoaded() && flyweight.GetInstances().Count == 0)
+                {
+                    flyweight.Unload();
+                }
+            }
+        }
+
+        public bool IsLoaded(ObjectType type)
+        {
+            if(type == null)
+            {
+                return false;
+            }
+            Flyweight flyweight = GetFlyweight(type.GetID());
+            if(flyweight == null)
+            {
+                return false;
+            }
+            return flyweight.IsLoaded();
+        }
+
+        public ObjectType GetTypeAtIndex(int index)
+        {
+            return mTypes[index];
+        }
+
+        public int GetTypeCount()
+        {
+            return mTypes.Length;
         }
 	}
 }

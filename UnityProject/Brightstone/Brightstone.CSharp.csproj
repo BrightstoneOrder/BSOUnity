@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.4.1f1</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -113,7 +115,13 @@
     <Compile Include="Assets\Scripts\Engine\Game\OptionMgr.cs" />
     <Compile Include="Assets\Scripts\Engine\Game\OptionName.cs" />
     <Compile Include="Assets\Scripts\Engine\Game\OptionType.cs" />
-    <Compile Include="Assets\Scripts\Engine\Game\Unit.cs" />
+    <Compile Include="Assets\Scripts\Engine\Terrain\HexMesh.cs" />
+    <Compile Include="Assets\Scripts\Engine\Terrain\HexSide.cs" />
+    <Compile Include="Assets\Scripts\Engine\Terrain\HexTile.cs" />
+    <Compile Include="Assets\Scripts\Engine\Terrain\QuadGrid.cs" />
+    <Compile Include="Assets\Scripts\Engine\Terrain\QuadMesh.cs" />
+    <Compile Include="Assets\Scripts\Engine\Terrain\QuadTile.cs" />
+    <Compile Include="Assets\Scripts\Engine\Unit\Unit.cs" />
     <Compile Include="Assets\Scripts\Engine\Game\UnitSpawner.cs" />
     <Compile Include="Assets\Scripts\Engine\Streams\BaseStream.cs" />
     <Compile Include="Assets\Scripts\Engine\Streams\NestedObject.cs" />
@@ -128,10 +136,16 @@
     <Compile Include="Assets\Scripts\Engine\SubComponent.cs" />
     <Compile Include="Assets\Scripts\Engine\Terrain\WorldTerrain.cs" />
     <Compile Include="Assets\Scripts\Engine\TileMap.cs" />
+    <Compile Include="Assets\Scripts\Engine\Unit\UnitAbility.cs" />
+    <Compile Include="Assets\Scripts\Engine\Unit\UnitAbilityActionHandler.cs" />
     <Compile Include="Assets\Scripts\Interface\ActionButtonDesc.cs" />
+    <Compile Include="Assets\Scripts\Interface\UIAction.cs" />
+    <Compile Include="Assets\Scripts\Interface\UIActionBar.cs" />
     <Compile Include="Assets\Scripts\Interface\UIActionButton.cs" />
+    <Compile Include="Assets\Scripts\Interface\UIActionHandler.cs" />
     <Compile Include="Assets\Scripts\Interface\UIBarGraph.cs" />
     <Compile Include="Assets\Scripts\Interface\UIBase.cs" />
+    <Compile Include="Assets\Scripts\Interface\UIElement.cs" />
     <Compile Include="Assets\Scripts\Interface\UIImage.cs" />
     <Compile Include="Assets\Scripts\Interface\UIMgr.cs" />
     <Compile Include="Assets\Scripts\Interface\UIMinimapCamera.cs" />

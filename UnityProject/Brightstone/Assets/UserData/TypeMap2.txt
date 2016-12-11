@@ -14,23 +14,35 @@ $[TypeMap,BaseObject]
 			BaseName:String("Engine/Actor")
 		}
 		{
+			Name:String("Engine/QuadGrid")
+			BaseName:String("Engine/Actor")
+		}
+		{
 			Name:String("Engine/Unit")
 			BaseName:String("Engine/Actor")
+		}
+		{
+			Name:String("Engine/Interface/UIActionBar")
+			BaseName:String("Engine/Interface/UIBase")
+		}
+		{
+			Name:String("Engine/Interface/UIActionButton")
+			BaseName:String("Engine/Interface/UIBase")
 		}
 		{
 			Name:String("Engine/Interface/UIBase")
 			BaseName:String("Engine/Actor")
 		}
 		{
-			Name:String("Engine/Interface/UIButton")
+			Name:String("Engine/Interface/UIImage")
 			BaseName:String("Engine/Interface/UIBase")
 		}
 		{
-			Name:String("Engine/Interface/UIImage")
-			BaseName:String("Engine/Actor")
+			Name:String("Engine/Interface/UIMinimapCamera")
+			BaseName:String("Engine/Interface/UIBase")
 		}
 		{
-			Name:String("Engine/Interface/UIMinimapCamera")
+			Name:String("Engine/Interface/UISprite")
 			BaseName:String("Engine/Interface/UIBase")
 		}
 		{
@@ -68,6 +80,14 @@ $[TypeMap,BaseObject]
 		{
 			Name:String("Game/Effects/Unit")
 			BaseName:String("Engine/Unit")
+		}
+		{
+			Name:String("Interface/GameActionBar")
+			BaseName:String("Engine/Interface/UIActionBar")
+		}
+		{
+			Name:String("Interface/GameActionButton")
+			BaseName:String("Engine/Interface/UIActionButton")
 		}
 	}
 }

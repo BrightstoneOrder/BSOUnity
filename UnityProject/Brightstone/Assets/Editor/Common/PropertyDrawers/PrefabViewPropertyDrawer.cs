@@ -142,7 +142,7 @@ namespace Brightstone
             // Our type... is what is selected if were a prefab.
 
             string originalName = nameProp.stringValue;
-            GUIContent propName = new GUIContent(label + ": Set Type (" + constraintName + ")", property.tooltip);
+            GUIContent propName = new GUIContent(label + "(" + constraintName + "):", property.tooltip);
             editorInstanceProp.objectReferenceValue = EditorGUI.ObjectField(position, propName, editorInstanceProp.objectReferenceValue, typeof(GameObject), false) as GameObject;
             GameObject target = editorInstanceProp.objectReferenceValue as GameObject;
             if(target == null)

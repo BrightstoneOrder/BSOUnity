@@ -56,8 +56,3 @@ MonoBehaviour:
       type: 2}
     mName: Engine/Unit
     mBaseName: Engine/Actor
-  mItemType:
-    mEditorInstance: {fileID: 1000011641099492, guid: d7f3fe195f2c05f49aa92b48d31bd567,
-      type: 2}
-    mName: Game/A
-    mBaseName: 

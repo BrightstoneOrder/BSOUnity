@@ -91,4 +91,5 @@ MonoBehaviour:
       type: 2}
     mName: Engine/Interface/UIMinimapCamera
     mBaseName: Engine/Interface/UIBase
+  mElementName: 
   mRenderTexture: {fileID: 8400000, guid: 0c461c2041b06774c84a9da1b734ebb8, type: 2}

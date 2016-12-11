@@ -68,9 +68,29 @@ namespace Brightstone
         /** Called once to recycle the component. Set defaults. */
         protected virtual void OnRecycle() { }
 
+        /** Called to queue resources for batch loading. (eg. Call Prepare on Prefabs) */
+        public virtual void OnBatchSubmit() { }
+        /** Called to signal that your submitted batch is complete and the resources are ready for use. */
+        public virtual void OnBatchComplete() { }
+
         /** Called to serialize object properties.*/
         public virtual void Serialize(BaseStream stream) { }
 
+
+        public void QueueBatchLoad()
+        {
+            if(IsBatchLoadRegistered())
+            {
+                return;
+            }
+            mWorld.InternalRegisterBatchLoad(this);
+            mFlags.Set(ComponentFlags.CF_BATCH_LOAD_REGISTERED);
+        }
+
+        public void SetBatchLoadComplete()
+        {
+            mFlags.Unset(ComponentFlags.CF_BATCH_LOAD_REGISTERED);
+        }
 
         public Transform GetTransform()
         {
@@ -80,6 +100,11 @@ namespace Brightstone
         public bool IsGarbage()
         {
             return mFlags.Has(ComponentFlags.CF_GARBAGE);
+        }
+
+        public bool IsBatchLoadRegistered()
+        {
+            return mFlags.Has(ComponentFlags.CF_BATCH_LOAD_REGISTERED);
         }
 
 #if UNITY_EDITOR

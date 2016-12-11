@@ -94,7 +94,3 @@ MonoBehaviour:
       type: 2}
     mName: Game/Capsule
     mBaseName: Engine/Unit
-  mItemType:
-    mEditorInstance: {fileID: 0}
-    mName: 
-    mBaseName: 

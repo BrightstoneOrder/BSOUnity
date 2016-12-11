@@ -2,6 +2,18 @@
 using System.Collections;
 namespace Brightstone
 {
+    public struct Line
+    {
+        public Line(Vector3 inPoint, Vector3 inDirection)
+        {
+            point = inPoint;
+            direction = inDirection;
+        }
+
+        public Vector3 point;
+        public Vector3 direction;
+    }
+
     public static class MathUtils
     {
         public const float EPSILON = 0.000001f;
@@ -46,6 +58,14 @@ namespace Brightstone
             return Mathf.Clamp(val, min, max);
         }
 
+        public static Vector3 InverseLerp(Vector3 a, Vector3 b, Vector3 value)
+        {
+            return new Vector3(
+                Mathf.InverseLerp(a.x, b.x, value.x),
+                Mathf.InverseLerp(a.y, b.y, value.y),
+                Mathf.InverseLerp(a.z, b.z, value.z)
+                );
+        }
 
         public static Vector3 Direction(Vector3 to, Vector3 from)
         {
@@ -137,6 +157,27 @@ namespace Brightstone
         public static void Coord2Index(int x, int y, int width, out int index)
         {
             index = x + width * y;
+        }
+
+        public static bool LineLineIntersection(out Vector3 point, Line a, Line b)
+        {
+            Vector3 cDir = b.point - a.point;
+            Vector3 crossAB = Vector3.Cross(a.direction, b.direction);
+            Vector3 crossCB = Vector3.Cross(cDir, b.direction);
+            float planarFactor = Vector3.Dot(cDir, crossAB);
+
+            // is coplanar and not parrallel
+            if(Mathf.Abs(planarFactor) < 0.0001f && crossAB.sqrMagnitude > 0.0001f)
+            {
+                float s = Vector3.Dot(crossCB, crossAB) / crossAB.sqrMagnitude;
+                point = a.point + (a.direction * s);
+                return true;
+            }
+            else
+            {
+                point = Vector2.zero;
+                return false;
+            }
         }
     }
 

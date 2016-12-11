@@ -77,5 +77,17 @@ namespace Brightstone
             value = 0;
         }
 
+        public int GetBitsOn()
+        {
+            int numOn = 0;
+            for (int i = 0, size = Util.GetEnumCount<T>(); i < size; ++i)
+            {
+                if ((value & (1 << i)) == (1 << i))
+                {
+                    ++numOn;
+                }
+            }
+            return numOn;
+        }
     }
 }

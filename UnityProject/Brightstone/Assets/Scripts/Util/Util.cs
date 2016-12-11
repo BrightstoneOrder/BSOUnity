@@ -11,6 +11,8 @@ namespace Brightstone
 {
     public static class Util
     {
+        public const int INVALID_INT = -1;
+
         [Test]
         public class UtilTest : Test
         {
@@ -230,6 +232,15 @@ namespace Brightstone
 #else
             return filePath;
 #endif
+        }
+        public static bool Valid(int value)
+        {
+            return value != INVALID_INT;
+        }
+
+        public static bool Invalid(int value)
+        {
+            return value == INVALID_INT;
         }
     }
 }

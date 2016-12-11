@@ -33,8 +33,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013492264248}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.33480355, y: -10.259381, z: 15.028369}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -56,9 +56,23 @@ MonoBehaviour:
       type: 2}
     mName: Engine/Grid
     mBaseName: Engine/Actor
-  mGenerateGrid: 1
-  mGridSize: 10
-  mGapSize: 1
-  mNumSubGrids: 3
-  mOffset: {x: 0, y: 0, z: 0}
-  mMaterial: {fileID: 0}
+  mMaterial: {fileID: 2100000, guid: 6305a23988b9aa14c822ca7866c94ca6, type: 2}
+  mSides: 0000000003000000
+  mIndentAmount: 1
+  mIndentWidth: 0.15
+  mExtrudeFactor: 0.25
+  mRadius: 10
+  mWidth: 6
+  mHeight: 6
+  mDbgSelect: 0
+  mCameraSelect: 10
+  dbgPoint: {x: 0, y: 0, z: 0}
+  dbgX: 0
+  dbgY: 0
+  dbgIndex: 0
+  dbgXform: {fileID: 0}
+  mForceRefresh: 1
+  mQuadHeight: {fileID: 0}
+  mDrawWidth: 5
+  mDrawHeight: 5
+  mMeshInspect: {fileID: 0}

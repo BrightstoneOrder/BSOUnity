@@ -20,7 +20,6 @@ GameObject:
   m_Component:
   - 224: {fileID: 224000010427940708}
   - 222: {fileID: 222000011879678550}
-  - 114: {fileID: 114000014222107426}
   - 114: {fileID: 114000014170089646}
   - 114: {fileID: 114000012253040072}
   m_Layer: 5
@@ -46,6 +45,7 @@ MonoBehaviour:
       type: 2}
     mName: Engine/Interface/UIImage
     mBaseName: Engine/Interface/UIBase
+  mElementName: 
 --- !u!114 &114000014170089646
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -72,22 +72,6 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
---- !u!114 &114000014222107426
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010788530614}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d998933cbfad35542b3ca3dc9d8b60ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mType:
-    mEditorInstance: {fileID: 1000010038396670, guid: e9afb09c88450204d891739e1ef6dcd5,
-      type: 2}
-    mName: Engine/Interface/UIImage
-    mBaseName: Engine/Actor
 --- !u!222 &222000011879678550
 CanvasRenderer:
   m_ObjectHideFlags: 1

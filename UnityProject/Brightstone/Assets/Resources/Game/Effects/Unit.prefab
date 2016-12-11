@@ -107,10 +107,6 @@ MonoBehaviour:
       type: 2}
     mName: Game/Effects/Unit
     mBaseName: Engine/Unit
-  mItemType:
-    mEditorInstance: {fileID: 0}
-    mName: 
-    mBaseName: 
 --- !u!143 &143000012589984544
 CharacterController:
   m_ObjectHideFlags: 1

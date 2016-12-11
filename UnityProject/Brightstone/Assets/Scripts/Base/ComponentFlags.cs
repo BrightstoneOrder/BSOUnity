@@ -12,7 +12,9 @@
         /** Component is a manager*/
         CF_MANAGER,
         /** Component is a entity.*/
-        CF_ACTOR
+        CF_ACTOR,
+        /** Component is registered for batch loading.*/
+        CF_BATCH_LOAD_REGISTERED
     }
 
     /** typedef ComponentFlagsBitfield. */
