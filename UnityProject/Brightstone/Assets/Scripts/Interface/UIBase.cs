@@ -7,6 +7,7 @@ namespace Brightstone
         [SerializeField]
         private string mElementName = string.Empty;
 
+        private int mId = 0;
         private int mHideRequests = 0;
         
         
@@ -61,6 +62,9 @@ namespace Brightstone
         {
             return UIElement.UE_NONE;
         }
+
+        public int id { get { return mId; } set { mId = value; } }
+
     }
 }
 

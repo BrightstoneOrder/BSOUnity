@@ -155,6 +155,7 @@ namespace Brightstone
             {
                 mActionHandler.OnAction(UIAction.UA_CLICK, this);
             }
+            mWorld.GetUIMgr().GlobalNotify(UIAction.UA_CLICK, this);
         }
 
         // Called via Unity UI Events. @See GameObject setup. 
@@ -168,6 +169,7 @@ namespace Brightstone
             {
                 mActionHandler.OnAction(UIAction.UA_MOUSE_ENTER, this);
             }
+            mWorld.GetUIMgr().GlobalNotify(UIAction.UA_MOUSE_ENTER, this);
         }
 
         // Called via Unity UI Events. @See GameObject setup.
@@ -181,7 +183,9 @@ namespace Brightstone
             {
                 mActionHandler.OnAction(UIAction.UA_MOUSE_LEAVE, this);
             }
+            mWorld.GetUIMgr().GlobalNotify(UIAction.UA_MOUSE_LEAVE, this);
         }
+
     }
 
 

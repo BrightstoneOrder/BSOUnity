@@ -1,0 +1,35 @@
+﻿// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel CSMain
+
+
+RWStructuredBuffer<float3> mPositions;
+RWStructuredBuffer<float> mHeightMap;
+int mState;
+float mBrushRadius;
+float4 mWorldPosition;
+
+[numthreads(8,8,1)]
+void CSMain (uint3 id : SV_GroupThreadId, uint3 dispId : SV_DispatchThreadID)
+{
+	// TODO: insert actual code here!
+
+    int index = dispId.x + 32 * dispId.y;
+
+    float3 position =  mPositions[index];
+    // float3 worldPos = float3(1.0, 0.0, 0.0);
+    float dist = length(position - mWorldPosition.xyz);
+    
+    if (dist < mBrushRadius)
+    {
+        mHeightMap[index] = 1.0f;
+    }
+    else
+    {
+        mHeightMap[index] = 0.0f;
+    }
+
+
+    // float distCondition = max(dist - mBrushRadius, 0.0f);
+    // float modify = distCondition * 1.0f;
+    // mHeightMap[index] += modify;
+}

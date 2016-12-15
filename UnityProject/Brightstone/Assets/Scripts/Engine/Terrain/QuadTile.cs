@@ -5,6 +5,14 @@ namespace Brightstone
 {
     public class QuadTile
     {
+        public struct TileProperties
+        {
+            public HeightmapSize size;
+            public int height;
+            public float quadSize;
+            public bool center;
+
+        }
 
         private Vector2 MapUv(Vector3 min, Vector3 max, Vector3 value)
         {
@@ -93,12 +101,12 @@ namespace Brightstone
                     vd.heightmapCoords.Add(MapUv(min, max, bottomRight));
 
 
-                    vd.barycentricCoords.Add(new Vector4(1.0f, 0.0f, 0.0f, i));
-                    vd.barycentricCoords.Add(new Vector4(0.0f, 1.0f, 0.0f, i));
+                    vd.barycentricCoords.Add(new Vector4(1.0f, 0.0f, 0.0f, i + offset));
+                    vd.barycentricCoords.Add(new Vector4(0.0f, 1.0f, 0.0f, i + 1));
                     vd.barycentricCoords.Add(new Vector4(0.0f, 0.0f, 1.0f, i));
-                    vd.barycentricCoords.Add(new Vector4(1.0f, 0.0f, 0.0f, i));
-                    vd.barycentricCoords.Add(new Vector4(0.0f, 1.0f, 0.0f, i));
-                    vd.barycentricCoords.Add(new Vector4(0.0f, 0.0f, 1.0f, i));
+                    vd.barycentricCoords.Add(new Vector4(1.0f, 0.0f, 0.0f, i + offset));
+                    vd.barycentricCoords.Add(new Vector4(0.0f, 1.0f, 0.0f, i + offset + 1));
+                    vd.barycentricCoords.Add(new Vector4(0.0f, 0.0f, 1.0f, i + 1));
                 }
                 ++i;
             }
@@ -108,7 +116,9 @@ namespace Brightstone
         
         }
 
-        public void GenerateCollisionData(QuadMesh.VertexData vd, Texture2D texture)
+        
+
+        public void GenerateCollisionData(QuadMesh.VertexData vd, QuadCollision collision)
         {
             float totalWidth = (mQuadSize) * mWidth;
             float totalLength = (mQuadSize) * mLength;
@@ -125,8 +135,8 @@ namespace Brightstone
             {
                 for (int x = 0; x < mWidth + 1; ++x)
                 {
-                    Color pixelColor = texture.GetPixel(x, z);
-                    point.y = Mathf.Lerp(0.0f, mHeight, pixelColor.r);
+                    float height = collision.GetSample(x, z);
+                    point.y = Mathf.Lerp(0.0f, mHeight, height);
                     vd.positions.Add(point);
                     point.x += mQuadSize;
                 }

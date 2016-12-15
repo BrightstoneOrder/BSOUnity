@@ -49,6 +49,12 @@ namespace Brightstone
             }
         }
 
+        [MenuItem("Brightstone/Data Objects/New")]
+        public static void ImportWizardWindow()
+        {
+            NewAsset<BaseScriptableObject>("NewDataObject", "Assets/");
+        }
+
         private static T NewAsset<T>(string name, string path) where T : ScriptableObject
         {
             T asset = ScriptableObject.CreateInstance<T>();
@@ -60,7 +66,7 @@ namespace Brightstone
             AssetDatabase.Refresh();
             EditorUtility.FocusProjectWindow();
             Selection.activeObject = asset;
-            Debug.Log("Created new asset " + name + " at " + path);
+            Log.Sys.Info("Created new asset " + name + " at " + path);
             return asset;
         }
 
@@ -72,6 +78,14 @@ namespace Brightstone
                 return true;
             }
             return false;
+        }
+
+        /// <summary>
+        /// Example use is GetPath("MyAsset") would return ...Asset/MyAsset
+        /// </summary>
+        public static string GetPath(string path)
+        {
+            return Application.dataPath + "/" + path;
         }
 
         public static GameObject GetAssetForPath(string path)

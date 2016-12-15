@@ -179,6 +179,17 @@ namespace Brightstone
                 return false;
             }
         }
+        
+        public static bool SphereIntersectBounds(BoundingSphere sphere, Bounds bounds)
+        {
+            Ray ray = new Ray(sphere.position, (bounds.center - sphere.position).normalized);
+            float distance = 0.0f;
+            if(bounds.IntersectRay(ray, out distance))
+            {
+                return distance < sphere.radius;
+            }
+            return false;
+        }
     }
 
 }

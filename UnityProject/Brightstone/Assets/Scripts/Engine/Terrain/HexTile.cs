@@ -290,7 +290,7 @@ namespace Brightstone
         private void SetOuterRadius(float outerRadius)
         {
             mOuterRadius = 10.0f;
-            mInnerRadius = CalcInnerRadius(outerRadius);
+            //mInnerRadius = CalcInnerRadius(outerRadius);
         }
 
         public static float CalcInnerRadius(float outerRadius)
@@ -302,7 +302,7 @@ namespace Brightstone
         private void SetExtrudeFactor(float extrudeFactor)
         {
             extrudeFactor = Mathf.Clamp01(extrudeFactor);
-            mExtrudeFactor = extrudeFactor;
+            //mExtrudeFactor = extrudeFactor;
             mOneMinusExtrudeFactor = 1.0f - extrudeFactor;
         }
 
@@ -321,9 +321,9 @@ namespace Brightstone
 
 
         private float mOuterRadius = 10.0f;
-        private float mInnerRadius = 10.0f;
+        //private float mInnerRadius = 10.0f;
         // The % of radius used for the "middle" hexagon
-        private float mExtrudeFactor = 0.25f;
+        //private float mExtrudeFactor = 0.25f;
         // The % of radius used for the "outer" hexagon
         private float mOneMinusExtrudeFactor = 0.75f;
         // How much to indent road/river

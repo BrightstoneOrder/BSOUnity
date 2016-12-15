@@ -5,13 +5,17 @@ namespace Brightstone
 {
     public class UIMgr : BaseObject
     {
+
+
         private List<UIBase>[] mElements = new List<UIBase>[Util.GetEnumCount<UIElement>()];
+        private List<UIActionHandler>[] mGlobalHandlers = new List<UIActionHandler>[Util.GetEnumCount<UIElement>()];
 
         public void Init()
         {
             for(int i = 0; i < mElements.Length; ++i)
             {
                 mElements[i] = new List<UIBase>();
+                mGlobalHandlers[i] = new List<UIActionHandler>();
             }
         }
 
@@ -29,11 +33,29 @@ namespace Brightstone
             }
         }
 
+        private void UpdateIds()
+        {
+            int elementSize = Util.GetEnumCount<UIElement>();
+            for(int i = 0; i < elementSize; ++i)
+            {
+                for(int j = 0; j < mElements[i].Count; ++j)
+                {
+                    mElements[i][j].id = j;
+                }
+            }
+        }
+
         public void Register(UIBase actor)
         {
             UIElement element = actor.GetElementType();
             int elementIndex = (int)element;
             mElements[elementIndex].Add(actor);
+            UpdateIds();
+
+            if(EditorConfig.current.debugLogRegister)
+            {
+                Log.Sys.Info("UIMgr register actor " + actor.GetElementName() + " at index " + element.ToString());
+            }
         }
 
         public void Unregister(UIBase actor)
@@ -41,6 +63,12 @@ namespace Brightstone
             UIElement element = actor.GetElementType();
             int elementIndex = (int)element;
             mElements[elementIndex].Remove(actor);
+            UpdateIds();
+
+            if (EditorConfig.current.debugLogRegister)
+            {
+                Log.Sys.Info("UIMgr unregister actor " + actor.GetElementName() + " at index " + element.ToString());
+            }
         }
 
         // Search by name
@@ -120,6 +148,38 @@ namespace Brightstone
                     }
                 }
             }
+        }
+
+        public void GlobalNotify(UIAction action, UIBase sender)
+        {
+            int elementType = (int)sender.GetElementType();
+            List<UIActionHandler> handlers = mGlobalHandlers[elementType];
+            for(int i =0; i < handlers.Count; ++i)
+            {
+                handlers[i].OnAction(action, sender);
+            }
+        }
+
+        public void RegisterGlobalHandler(UIElement element, UIActionHandler handler)
+        {
+            if(handler == null)
+            {
+                return;
+            }
+            int elementType = (int)element;
+            List<UIActionHandler> handlers = mGlobalHandlers[elementType];
+            handlers.Add(handler);
+        }
+
+        public void UnregisterGlobalHandler(UIElement element, UIActionHandler handler)
+        {
+            if(handler == null)
+            {
+                return;
+            }
+            int elementType = (int)element;
+            List<UIActionHandler> handlers = mGlobalHandlers[elementType];
+            handlers.Remove(handler);
         }
         
         public void OnUnitSelected(Unit unit)

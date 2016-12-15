@@ -5,6 +5,15 @@ namespace Brightstone
 {
     public class QuadMesh
     {
+        // Example Vertex Shader data structure
+        // public struct IN_Vertex
+        // {
+        //     float4 position : POSITION0;
+        //     float2 quadCoord : TEXCOORD0;
+        //     float2 heightCoord : TEXCOORD1;
+        //     float4 debugData : TEXCOORD2;
+        // };
+
         public class VertexData
         {
             public List<Vector3> positions = new List<Vector3>();
@@ -54,8 +63,8 @@ namespace Brightstone
             mMesh.SetVertices(mVertexData.positions);
             mMesh.SetTriangles(mVertexData.triangles, 0);
             mMesh.SetUVs(0, mVertexData.texCoords);
-            mMesh.SetUVs(1, mVertexData.barycentricCoords);
-            mMesh.SetUVs(2, mVertexData.heightmapCoords);
+            mMesh.SetUVs(1, mVertexData.heightmapCoords);
+            mMesh.SetUVs(2, mVertexData.barycentricCoords);
             mMesh.RecalculateNormals();
 
             mCollisionMesh.SetVertices(mCollisionData.positions);

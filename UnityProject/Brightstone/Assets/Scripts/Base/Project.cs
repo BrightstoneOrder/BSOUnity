@@ -17,6 +17,7 @@ namespace Brightstone
     */
 	public static class Project  
 	{
+
         private const int POP_FAILED = 0;
         private const int POP_GOOD = 1;
         private const int POP_FINISHED = 2;

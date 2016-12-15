@@ -59,7 +59,9 @@ namespace Brightstone
             if (mScript != null)
             {
                 AddProperty(mScript);
+                
             }
+            AutoSerializeProperties(typeof(World));
         }
     }
 }

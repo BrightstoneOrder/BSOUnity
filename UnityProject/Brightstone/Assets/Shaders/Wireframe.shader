@@ -73,6 +73,8 @@ Shader "Custom/Wireframe"
             sampler2D _Heightmap;
             float4 _Heightmap_ST;
 
+            StructuredBuffer<float> mHeightMapBuffer;
+
             // Private Uniforms
             float _Selected;
             float _Height;
@@ -89,15 +91,18 @@ Shader "Custom/Wireframe"
                 OUT.uv3 = TRANSFORM_TEX(IN.uv3, _Texture); //IN.uv3;
 
                 int id = floor(IN.uv2.w);
-                int selected = floor(_Selected);
-                if (id == selected)
-                {
-                    OUT.color = _SelectColor.xyz;
-                }
-                else
-                {
-                    OUT.color = float3(1.0, 1.0, 1.0);
-                }
+                // int selected = floor(_Selected);
+                // if (id == selected)
+                // {
+                //     OUT.color = _SelectColor.xyz;
+                // }
+                // else
+                // {
+                //     OUT.color = float3(1.0, 1.0, 1.0);
+                // }
+
+                float highlight = mHeightMapBuffer[id];
+                OUT.color = lerp(float3(1.0, 1.0, 1.0), _SelectColor.xyz, highlight);
 
                 // Apply Heightmap
                 float4 heightInfo = tex2Dlod(_Heightmap, float4(OUT.uv3, 0.0, 0.0));
@@ -116,7 +121,7 @@ Shader "Custom/Wireframe"
                 }
                 else
                 {
-                    return float4(IN.color, 1.0) * tex2D(_Texture, IN.uv1);
+                    return float4(IN.color, 1.0) *tex2D(_Texture, IN.uv1);
                 }
             }
 

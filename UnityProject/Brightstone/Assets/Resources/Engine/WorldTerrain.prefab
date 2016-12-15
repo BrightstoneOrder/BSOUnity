@@ -9,30 +9,30 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1000013492264248}
+  m_RootGameObject: {fileID: 1000011167874318}
   m_IsPrefabParent: 1
---- !u!1 &1000013492264248
+--- !u!1 &1000011167874318
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 4000013343313366}
-  - 114: {fileID: 114000012282858004}
+  - 4: {fileID: 4000011702486530}
+  - 114: {fileID: 114000013222140422}
   m_Layer: 0
-  m_Name: Grid
+  m_Name: WorldTerrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4000013343313366
+--- !u!4 &4000011702486530
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013492264248}
+  m_GameObject: {fileID: 1000011167874318}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -40,39 +40,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &114000012282858004
+--- !u!114 &114000013222140422
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013492264248}
+  m_GameObject: {fileID: 1000011167874318}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4eca04f0cfdd94642ab881d62e59d44a, type: 3}
+  m_Script: {fileID: 11500000, guid: d7892ace316d0b3459e11bf8a7e88301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   mType:
     mEditorInstance: {fileID: 1000010038396670, guid: e9afb09c88450204d891739e1ef6dcd5,
       type: 2}
-    mName: Engine/Grid
+    mName: Engine/WorldTerrain
     mBaseName: Engine/Actor
-  mMaterial: {fileID: 2100000, guid: 6305a23988b9aa14c822ca7866c94ca6, type: 2}
-  mSides: 0000000003000000
-  mIndentAmount: 1
-  mIndentWidth: 0.15
-  mExtrudeFactor: 0.25
-  mRadius: 10
-  mWidth: 6
-  mHeight: 6
-  mDbgSelect: 0
-  mCameraSelect: 10
-  dbgPoint: {x: 0, y: 0, z: 0}
-  dbgX: 0
-  dbgY: 0
-  dbgIndex: 0
-  dbgXform: {fileID: 0}
-  mForceRefresh: 1
-  mQuadHeight: {fileID: 0}
-  mDrawWidth: 5
-  mDrawHeight: 5
-  mMeshInspect: {fileID: 0}
+  mData: {fileID: 11400000, guid: 1a429ff8ba77038468be97c4316a7940, type: 2}
+  mMaterial: {fileID: 2100000, guid: 39822f56c4e625147888f4f14ca84c08, type: 2}
+  mComputeShader: {fileID: 0}
+  mBrushStrength: 2
+  mBrushRadius: 6

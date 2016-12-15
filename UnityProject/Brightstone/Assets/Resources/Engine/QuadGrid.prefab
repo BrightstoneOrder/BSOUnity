@@ -60,6 +60,6 @@ MonoBehaviour:
   mTileHeight: 64
   mTileQuadSize: 1
   mTileCenter: 1
-  mWidth: 1
-  mLength: 1
   mMaterial: {fileID: 0}
+  mComputeShader: {fileID: 0}
+  mBrushRadius: 3

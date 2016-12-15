@@ -48,6 +48,20 @@ namespace Brightstone
             window.maxSize = new Vector2(800.0f, 400.0f);
         }
 
+        [MenuItem("Brightstone/CreateTexture32")]
+        public static void CreateTexture32()
+        {
+            const string TEXTURE_PATH = "NewTextureR32.bsd";
+            if(File.Exists(EditorUtils.GetPath(TEXTURE_PATH)))
+            {
+                Log.Sys.Error("File already exists! Delete " + TEXTURE_PATH);
+                return;
+            }
+            Texture2D texture = new Texture2D(32, 32, TextureFormat.RFloat, false, true);
+            QuadHeightmap.Save(EditorUtils.GetPath(TEXTURE_PATH), texture);
+            AssetDatabase.Refresh();
+        }
+
         [MenuItem("Assets/Reimport Wizard")]
         public static void ReimportWizard()
         {

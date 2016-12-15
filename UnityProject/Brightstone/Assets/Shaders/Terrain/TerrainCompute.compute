@@ -1,0 +1,41 @@
+﻿// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel CSMain
+
+struct QuadCollisionData
+{
+    float height;
+};
+
+// In/Out
+RWStructuredBuffer<QuadCollisionData> mTerrainData;
+// In
+StructuredBuffer<float3> mVertexPositions;
+float4 mOffsetPosition;
+int mTerrainMapSize;
+float4 mBrushPosition;
+float mBrushState;
+float mBrushRadius;
+float mBrushStrength;
+
+[numthreads(8,8,1)]
+void CSMain (uint3 id : SV_DispatchThreadID)
+{
+    // Get Index for Id
+    int index = id.x + mTerrainMapSize * id.y;
+
+    // Calc Position
+    float3 position = mVertexPositions[index] + mOffsetPosition.xyz;
+    float dist = length(position - mBrushPosition.xyz);
+    float height = mTerrainData[index].height;
+
+    // Raise/Lower height
+    // height -= saturate(height * mBrushStrength * mBrushState);
+
+    // Conditional Set Data
+    if (dist < mBrushRadius)
+    {
+        float modify = mBrushStrength * mBrushState;
+        mTerrainData[index].height = saturate(height - modify);
+    }
+
+}

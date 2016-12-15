@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace Brightstone
 {
+#if BS_ENABLE_OLD
     public class Grid : Actor 
     {
         [SerializeField]
@@ -350,7 +351,7 @@ namespace Brightstone
         // Join Hexagons
 
 
-        #region OLD SQUARE GRID
+#region OLD SQUARE GRID
         /*
         public class GridData
         {
@@ -465,8 +466,9 @@ namespace Brightstone
             }
         }
         */
-        #endregion
+#endregion
 
     }
+#endif
 }
 

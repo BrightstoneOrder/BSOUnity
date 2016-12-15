@@ -60,6 +60,11 @@ namespace Brightstone
             }
         }
 
+        public static int SizeOf(Type type)
+        {
+            return System.Runtime.InteropServices.Marshal.SizeOf(type);
+        }
+
         /**
         *  Gets the number of enums in a enum for T.
         */

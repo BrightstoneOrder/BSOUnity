@@ -40,8 +40,12 @@ namespace Brightstone
         private bool[] mBatchTable = null;
         private LinkedList<int> mBatchLoadList = null;
         private ProfileTimer mProfileTimer = new ProfileTimer();
-                
-        
+
+#if UNITY_EDITOR
+        [SerializeField]
+        private EditorConfig mEditorConfig = new EditorConfig();
+#endif
+
 
         private void Awake()
         {
@@ -63,6 +67,11 @@ namespace Brightstone
 
         protected override void OnInit()
         {
+#if UNITY_EDITOR
+            EditorConfig.current = mEditorConfig;
+#else
+            EditorConfig.current = new EditorConfig();
+#endif
 
             Log.Sys.Info("Starting Options Mgr...");
             mOptionMgr = new OptionMgr();
@@ -251,6 +260,7 @@ namespace Brightstone
                 if (it.Value != null)
                 {
                     it.Value.OnBatchComplete();
+                    it.Value.SetBatchLoadComplete();
                 }
             }
 

@@ -3,6 +3,203 @@ using System.Collections.Generic;
 
 namespace Brightstone
 {
+    public class WorldTerrain : Actor
+    {
+        private class ActionHandler : UIActionHandler
+        {
+            public WorldTerrain instance { get; set; }
+
+            public override void OnAction(UIAction action, UIBase sender)
+            {
+                instance.OnAction(sender.id);
+            }
+        }
+
+        private enum ActionId
+        {
+            BRUSH_NONE,
+            BRUSH_LOWER,
+            BRUSH_RAISE,
+
+            SAVE_HEIGHT
+        }
+
+        // Shared Data
+        [SerializeField]
+        private WorldTerrainData mData = null;
+
+        // TODO: Where to put this material?
+        [SerializeField]
+        private Material mMaterial = null;
+        [SerializeField]
+        private ComputeShader mComputeShader = null;
+        [SerializeField]
+        private float mBrushStrength = 2.0f;
+        [SerializeField]
+        private float mBrushRadius = 6.0f;
+
+        // Runtime Data
+        private QuadTile.TileProperties mTileProperties = new QuadTile.TileProperties();
+        private List<TerrainTile> mTiles = new List<TerrainTile>();
+        private TerrainBrush mBrush = new TerrainBrush();
+        private int mComputeKernel = 0;
+        private Texture2D mDebugTexture = null;
+        
+
+
+
+
+    private void OnAction(int id)
+        {
+
+        }
+
+        // Functions
+
+        private void Start()
+        {
+            InternalInit();
+        }
+
+        private void OnDestroy()
+        {
+            InternalDestroy();
+        }
+
+        protected override void OnInit()
+        {
+            base.OnInit();
+            if(mData != null)
+            {
+                mTileProperties.center = mData.GetTileCenter();
+                mTileProperties.height = mData.GetTileMaxHeight();
+                mTileProperties.quadSize = mData.GetTileQuadSize();
+                mTileProperties.size = mData.GetTileSize();
+            }
+            for(int i = 0; i < 5; ++i)
+            {
+                for(int j = 0; j < 5; ++j)
+                {
+                    CreateTile(i, j);
+                }
+            }
+
+            if(mComputeShader != null)
+            {
+                mComputeKernel = mComputeShader.FindKernel("CSMain");
+            }
+
+            int actualSize = TerrainUtility.GetHeightmapSize(mTileProperties.size);
+            mDebugTexture = new Texture2D(actualSize, actualSize, TextureFormat.RFloat, false, false);
+            mDebugTexture.filterMode = FilterMode.Point;
+            mDebugTexture.Apply();
+            QueueBatchLoad();
+            
+
+        }
+
+        public override void OnBatchComplete()
+        {
+            base.OnBatchComplete();
+            UIImage image = mWorld.GetUIMgr().FindElement(UIElement.UE_IMAGE, "DebugHeightmap") as UIImage;
+            if (image != null)
+            {
+                image.SetTexture(mDebugTexture);
+            }
+        }
+
+        protected override void OnDestroyed()
+        {
+            base.OnDestroyed();
+            for(int i = 0; i < mTiles.Count; ++i)
+            {
+                mTiles[i].OnRelease();
+            }
+        }
+
+        private void Update()
+        {
+            // Setup Brush
+            InputMouseData mouseData = mWorld.GetInputMgr().GetMouseData();
+            mBrush.SetCircle();
+            mBrush.position = mouseData.worldPosition;
+            mBrush.target = mouseData.hitGameObject;
+            mBrush.strength = mBrushStrength * mWorld.GetGameDelta();
+            mBrush.size = mBrushRadius;
+
+            bool leftDown = Input.GetMouseButton(1);
+            bool rightDown = Input.GetMouseButton(0);
+            // Setup Compute Shader..
+            if(mComputeShader != null)
+            {
+                mComputeShader.SetVector(TerrainUtility.GetString(TerrainUtility.Keyword.BRUSH_POSITION), mBrush.position);
+                mComputeShader.SetFloat(TerrainUtility.GetString(TerrainUtility.Keyword.BRUSH_STATE), leftDown ? 1.0f : rightDown ? -1.0f : 0.0f);
+                mComputeShader.SetFloat(TerrainUtility.GetString(TerrainUtility.Keyword.BRUSH_RADIUS), mBrush.size);
+                mComputeShader.SetFloat(TerrainUtility.GetString(TerrainUtility.Keyword.BRUSH_STRENGTH), mBrush.strength);
+                
+                for(int i = 0; i < mTiles.Count; ++i)
+                {
+                    if(mTiles[i].RenderBrush(mBrush, mComputeShader, mComputeKernel) && (leftDown || rightDown))
+                    {
+                        mTiles[i].QueueUpdateCollision();
+                        mTiles[i].RenderDebugTexture(mDebugTexture);
+                    }
+                    
+                }
+
+            }
+
+            for(int i = 0; i < mTiles.Count; ++i)
+            {
+                mTiles[i].Render(mWorld.GetGameCamera());
+                mTiles[i].Update(mWorld.GetGameDelta());
+            }
+        }
+
+        private void CreateTile(int x, int y)
+        {
+            // Id, collision, properties
+            TerrainTile tile = new TerrainTile();
+
+            TerrainTile.TileId id = new TerrainTile.TileId(x, y, GetQuadCenter(x, y));
+            tile.SetMaterial(mMaterial);
+            tile.OnInit(id, QuadCollision.Create(mTileProperties.size), mTileProperties);
+            mTiles.Add(tile);
+            //mData.AddTile(x, y, id.position);
+            //mData.MarkDirty();
+        }
+
+        private void LoadTile(int x, int y)
+        {
+            TerrainTile tile = new TerrainTile();
+            TerrainTile.TileId id = new TerrainTile.TileId(x, y, GetQuadCenter(x, y));
+            tile.SetMaterial(mMaterial);
+            QuadCollision collision = mData.GetCollisionData(x, y);
+            if(collision != null)
+            {
+                tile.OnInit(id, collision, mTileProperties);
+            }
+        }
+
+        private void SaveTiles()
+        {
+            for(int i = 0; i < mTiles.Count; ++i)
+            {
+                TerrainTile.TileId id = mTiles[i].GetId();
+                string fullPath = mData.GetCollisionDataPath(id.x, id.y);
+                mTiles[i].UpdateCollision();
+                mTiles[i].GetCollisionData().Save(fullPath);
+            }
+        }
+
+        private Vector3 GetQuadCenter(int x, int z)
+        {
+            int actualSize = TerrainUtility.GetHeightmapSize(mTileProperties.size);
+            return new Vector3(x * (actualSize -1), 0.0f, z * (actualSize-1));
+        }
+
+    }
+
     //public class WorldTerrain : MonoBehaviour
     //{
     //    [SerializeField]

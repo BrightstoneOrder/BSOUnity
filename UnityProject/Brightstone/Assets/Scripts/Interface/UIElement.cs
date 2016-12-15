@@ -7,6 +7,7 @@
         UE_ACTION_BUTTON,
         UE_SELECTION_PORTRAIT,
         UE_SELECTION,
-        UE_MINIMAP
+        UE_MINIMAP,
+        UE_IMAGE
     }
 }

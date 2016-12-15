@@ -13,13 +13,11 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.4.1f1</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -84,6 +82,7 @@
     <Compile Include="Assets\ProCore\ProBuilder\Shader\BaseMaterialEditor.cs" />
     <Compile Include="Assets\Scripts\Base\BaseComponent.cs" />
     <Compile Include="Assets\Scripts\Base\BaseObject.cs" />
+    <Compile Include="Assets\Scripts\Base\BaseScriptableObject.cs" />
     <Compile Include="Assets\Scripts\Base\ComponentFlags.cs" />
     <Compile Include="Assets\Scripts\Base\Context.cs" />
     <Compile Include="Assets\Scripts\Base\EditorVariable.cs" />
@@ -115,17 +114,11 @@
     <Compile Include="Assets\Scripts\Engine\Game\OptionMgr.cs" />
     <Compile Include="Assets\Scripts\Engine\Game\OptionName.cs" />
     <Compile Include="Assets\Scripts\Engine\Game\OptionType.cs" />
-    <Compile Include="Assets\Scripts\Engine\Terrain\HexMesh.cs" />
-    <Compile Include="Assets\Scripts\Engine\Terrain\HexSide.cs" />
-    <Compile Include="Assets\Scripts\Engine\Terrain\HexTile.cs" />
-    <Compile Include="Assets\Scripts\Engine\Terrain\QuadGrid.cs" />
-    <Compile Include="Assets\Scripts\Engine\Terrain\QuadMesh.cs" />
-    <Compile Include="Assets\Scripts\Engine\Terrain\QuadTile.cs" />
-    <Compile Include="Assets\Scripts\Engine\Unit\Unit.cs" />
     <Compile Include="Assets\Scripts\Engine\Game\UnitSpawner.cs" />
     <Compile Include="Assets\Scripts\Engine\Streams\BaseStream.cs" />
     <Compile Include="Assets\Scripts\Engine\Streams\NestedObject.cs" />
     <Compile Include="Assets\Scripts\Engine\Streams\NumericalStream.cs" />
+    <Compile Include="Assets\Scripts\Engine\Streams\StreamCommon.cs" />
     <Compile Include="Assets\Scripts\Engine\Streams\StreamContext.cs" />
     <Compile Include="Assets\Scripts\Engine\Streams\StreamError.cs" />
     <Compile Include="Assets\Scripts\Engine\Streams\StreamObject.cs" />
@@ -134,8 +127,19 @@
     <Compile Include="Assets\Scripts\Engine\Streams\StreamTest.cs" />
     <Compile Include="Assets\Scripts\Engine\Streams\TextStream.cs" />
     <Compile Include="Assets\Scripts\Engine\SubComponent.cs" />
+    <Compile Include="Assets\Scripts\Engine\Terrain\HexMesh.cs" />
+    <Compile Include="Assets\Scripts\Engine\Terrain\HexSide.cs" />
+    <Compile Include="Assets\Scripts\Engine\Terrain\HexTile.cs" />
+    <Compile Include="Assets\Scripts\Engine\Terrain\QuadCollision.cs" />
+    <Compile Include="Assets\Scripts\Engine\Terrain\QuadGrid.cs" />
+    <Compile Include="Assets\Scripts\Engine\Terrain\QuadMesh.cs" />
+    <Compile Include="Assets\Scripts\Engine\Terrain\QuadTile.cs" />
+    <Compile Include="Assets\Scripts\Engine\Terrain\TerrainTile.cs" />
+    <Compile Include="Assets\Scripts\Engine\Terrain\TerrainUtility.cs" />
     <Compile Include="Assets\Scripts\Engine\Terrain\WorldTerrain.cs" />
+    <Compile Include="Assets\Scripts\Engine\Terrain\WorldTerrainData.cs" />
     <Compile Include="Assets\Scripts\Engine\TileMap.cs" />
+    <Compile Include="Assets\Scripts\Engine\Unit\Unit.cs" />
     <Compile Include="Assets\Scripts\Engine\Unit\UnitAbility.cs" />
     <Compile Include="Assets\Scripts\Engine\Unit\UnitAbilityActionHandler.cs" />
     <Compile Include="Assets\Scripts\Interface\ActionButtonDesc.cs" />
@@ -150,6 +154,26 @@
     <Compile Include="Assets\Scripts\Interface\UIMgr.cs" />
     <Compile Include="Assets\Scripts\Interface\UIMinimapCamera.cs" />
     <Compile Include="Assets\Scripts\Interface\UITooltip.cs" />
+    <Compile Include="Assets\Scripts\Libs\7zip\Common\CRC.cs" />
+    <Compile Include="Assets\Scripts\Libs\7zip\Common\CommandLineParser.cs" />
+    <Compile Include="Assets\Scripts\Libs\7zip\Common\InBuffer.cs" />
+    <Compile Include="Assets\Scripts\Libs\7zip\Common\OutBuffer.cs" />
+    <Compile Include="Assets\Scripts\Libs\7zip\Compress\LZ\IMatchFinder.cs" />
+    <Compile Include="Assets\Scripts\Libs\7zip\Compress\LZ\LzBinTree.cs" />
+    <Compile Include="Assets\Scripts\Libs\7zip\Compress\LZ\LzInWindow.cs" />
+    <Compile Include="Assets\Scripts\Libs\7zip\Compress\LZ\LzOutWindow.cs" />
+    <Compile Include="Assets\Scripts\Libs\7zip\Compress\LZMA\LzmaBase.cs" />
+    <Compile Include="Assets\Scripts\Libs\7zip\Compress\LZMA\LzmaDecoder.cs" />
+    <Compile Include="Assets\Scripts\Libs\7zip\Compress\LZMA\LzmaEncoder.cs" />
+    <Compile Include="Assets\Scripts\Libs\7zip\Compress\LzmaAlone\LzmaAlone.cs" />
+    <Compile Include="Assets\Scripts\Libs\7zip\Compress\LzmaAlone\LzmaBench.cs" />
+    <Compile Include="Assets\Scripts\Libs\7zip\Compress\LzmaAlone\Properties\AssemblyInfo.cs" />
+    <Compile Include="Assets\Scripts\Libs\7zip\Compress\LzmaAlone\Properties\Resources.cs" />
+    <Compile Include="Assets\Scripts\Libs\7zip\Compress\LzmaAlone\Properties\Settings.cs" />
+    <Compile Include="Assets\Scripts\Libs\7zip\Compress\RangeCoder\RangeCoder.cs" />
+    <Compile Include="Assets\Scripts\Libs\7zip\Compress\RangeCoder\RangeCoderBit.cs" />
+    <Compile Include="Assets\Scripts\Libs\7zip\Compress\RangeCoder\RangeCoderBitTree.cs" />
+    <Compile Include="Assets\Scripts\Libs\7zip\ICoder.cs" />
     <Compile Include="Assets\Scripts\Physics\KinematicBox.cs" />
     <Compile Include="Assets\Scripts\Physics\MathUtils.cs" />
     <Compile Include="Assets\Scripts\Physics\PhysicsMgr.cs" />
@@ -157,9 +181,12 @@
     <Compile Include="Assets\Scripts\Physics\SphereCastQuery.cs" />
     <Compile Include="Assets\Scripts\Tests\APITesting.cs" />
     <Compile Include="Assets\Scripts\Util\Bitfield.cs" />
+    <Compile Include="Assets\Scripts\Util\Compression.cs" />
+    <Compile Include="Assets\Scripts\Util\EditorConfig.cs" />
     <Compile Include="Assets\Scripts\Util\EnumDescriptor.cs" />
     <Compile Include="Assets\Scripts\Util\Log.cs" />
     <Compile Include="Assets\Scripts\Util\ProfileTimer.cs" />
+    <Compile Include="Assets\Scripts\Util\QuadHeightmap.cs" />
     <Compile Include="Assets\Scripts\Util\StringExt.cs" />
     <Compile Include="Assets\Scripts\Util\Test.cs" />
     <Compile Include="Assets\Scripts\Util\TestAttribute.cs" />
@@ -184,7 +211,18 @@
     <None Include="Assets\ProCore\ProBuilder\readme.txt" />
     <None Include="Assets\Resources\Engine\Materials\ColorMaterials\SkewShader.shader" />
     <None Include="Assets\Scripts\Engine\Terrain\WorldTerrainShader.shader" />
+    <None Include="Assets\Scripts\Libs\7zip\7zC.txt" />
+    <None Include="Assets\Scripts\Libs\7zip\7zFormat.txt" />
+    <None Include="Assets\Scripts\Libs\7zip\Methods.txt" />
+    <None Include="Assets\Scripts\Libs\7zip\installer.txt" />
+    <None Include="Assets\Scripts\Libs\7zip\lzma-history.txt" />
+    <None Include="Assets\Scripts\Libs\7zip\lzma-sdk.txt" />
+    <None Include="Assets\Scripts\Libs\7zip\lzma-specification.txt" />
+    <None Include="Assets\Scripts\Libs\7zip\lzma.txt" />
     <None Include="Assets\Scripts\ReadMe.txt" />
+    <None Include="Assets\Shaders\Compute\QuadCompute.compute" />
+    <None Include="Assets\Shaders\Terrain\TerrainCompute.compute" />
+    <None Include="Assets\Shaders\Terrain\TerrainShader.shader" />
     <None Include="Assets\Shaders\UnlitTintTexture.shader" />
     <None Include="Assets\Shaders\Wireframe.shader" />
     <None Include="Assets\UserData\Game\Options.txt" />
