@@ -10,9 +10,9 @@ namespace Brightstone
         public static EditorConfig current = null;
 
         // Break naming convention to avoid creating properties & extra typing.
-        [SerializeField]
+        public bool debugResourceBatching = false;
         public bool debugLogRegister = false;
-
+        public bool debugWorldTerrain = false;
 
 
     }

@@ -83,8 +83,10 @@
     <Compile Include="Assets\Scripts\Base\BaseComponent.cs" />
     <Compile Include="Assets\Scripts\Base\BaseObject.cs" />
     <Compile Include="Assets\Scripts\Base\BaseScriptableObject.cs" />
+    <Compile Include="Assets\Scripts\Base\Child.cs" />
     <Compile Include="Assets\Scripts\Base\ComponentFlags.cs" />
     <Compile Include="Assets\Scripts\Base\Context.cs" />
+    <Compile Include="Assets\Scripts\Base\CreationData.cs" />
     <Compile Include="Assets\Scripts\Base\EditorVariable.cs" />
     <Compile Include="Assets\Scripts\Base\EventMgr.cs" />
     <Compile Include="Assets\Scripts\Base\InputButton.cs" />

@@ -39,8 +39,9 @@ namespace Brightstone
         // Then tally up unique loads requested and wait for that number to be 0 while updating.
         private bool[] mBatchTable = null;
         private LinkedList<int> mBatchLoadList = null;
-        private ProfileTimer mProfileTimer = new ProfileTimer();
 
+
+        private LinkedList<CreationData> mQueuedChildren = new LinkedList<CreationData>();
 #if UNITY_EDITOR
         [SerializeField]
         private EditorConfig mEditorConfig = new EditorConfig();
@@ -106,6 +107,10 @@ namespace Brightstone
             mTypeMgr.InternalUpdate();
             mUIMgr.Update(this);
             UpdateBatchLoading();
+            if(!IsBatchLoading())
+            {
+                UpdateChildCreation();
+            }
         }
 
         private void UpdateTime()
@@ -143,7 +148,6 @@ namespace Brightstone
                 // Allow external input
                 case BATCH_STAGE_IDLE:
                 case BATCH_STAGE_REGISTER:
-                    mProfileTimer.Start();
                     
                     --mBatchRegisterFrameDelay;
                     if(mBatchRegisterFrameDelay == 0)
@@ -160,8 +164,22 @@ namespace Brightstone
                     break;
                 case BATCH_STAGE_COMPLETE:
                     CompleteBatchLoad();
-                    mProfileTimer.Stop("BatchLoad");
                     break;
+            }
+        }
+
+        private void UpdateChildCreation()
+        {
+            for (LinkedListNode<CreationData> it = mQueuedChildren.First; it != null; it = it.Next)
+            {
+                if(it.Value.prefab.IsLoaded())
+                {
+                    InternalCreateChild(it.Value);
+                    LinkedListNode<CreationData> garbageNode = it;
+                    it = it.Next;
+                    mQueuedChildren.Remove(garbageNode);
+                    break;
+                }
             }
         }
 
@@ -196,7 +214,10 @@ namespace Brightstone
                     stageString = "Complete";
                     break;
             }
-            Log.Sys.Info("World.GotoBatchStage " + stageString);
+            if(EditorConfig.current.debugResourceBatching)
+            {
+                Log.Sys.Info("World.GotoBatchStage " + stageString);
+            }
             mBatchStage = stage;
         }
 
@@ -292,6 +313,48 @@ namespace Brightstone
         public Actor CreateActor(Prefab prefab)
         {
             return mTypeMgr.CreateInstance(prefab);
+        }
+
+
+        // Only Child component is supposed to call this.
+        public void CreateChild(CreationData data)
+        {
+            // Load prefab..
+            if(data.prefab == null)
+            {
+                return;
+            }
+
+            data.prefab.Acquire();
+            if(!data.prefab.IsLoaded())
+            {
+                data.prefab.Prepare();
+                return;
+            }
+            InternalCreateChild(data);
+        }
+
+        private void InternalCreateChild(CreationData data)
+        {
+            Actor actor = CreateActor(data.prefab);
+            if(data.parent != null)
+            {
+                actor.GetTransform().SetParent(data.parent.GetTransform());
+                actor.GetTransform().localPosition = data.localPosition;
+                actor.GetTransform().localRotation = data.localRotation;
+            }
+            else
+            {
+                // Parent got destroyed while we were waiting for resources to load?
+                actor.SetPosition(data.localPosition);
+                actor.SetRotation(data.localRotation);
+            }
+
+            if(!data.enabledByDefault)
+            {
+                actor.gameObject.SetActive(false);
+            }
+
         }
 
         public T Create<T>(Prefab prefab) where T : Actor

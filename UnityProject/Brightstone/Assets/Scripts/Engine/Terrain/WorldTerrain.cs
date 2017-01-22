@@ -11,7 +11,10 @@ namespace Brightstone
 
             public override void OnAction(UIAction action, UIBase sender)
             {
-                instance.OnAction(sender.id);
+                if(action == UIAction.UA_CLICK)
+                {
+                    instance.OnAction(sender.id);
+                }
             }
         }
 
@@ -44,14 +47,16 @@ namespace Brightstone
         private TerrainBrush mBrush = new TerrainBrush();
         private int mComputeKernel = 0;
         private Texture2D mDebugTexture = null;
+        private ActionHandler mHandler = null;
         
 
 
 
 
-    private void OnAction(int id)
+        private void OnAction(int id)
         {
-
+            ActionId actionId = (ActionId)id;
+            Log.Game.Info("Handle action " + actionId.ToString());
         }
 
         // Functions
@@ -106,11 +111,19 @@ namespace Brightstone
             {
                 image.SetTexture(mDebugTexture);
             }
+
+            mHandler = new ActionHandler();
+            mHandler.instance = this;
+            UIMgr ui = mWorld.GetUIMgr();
+            ui.RegisterGlobalHandler(UIElement.UE_ACTION_BUTTON, mHandler);
         }
 
         protected override void OnDestroyed()
         {
             base.OnDestroyed();
+
+            mWorld.GetUIMgr().UnregisterGlobalHandler(UIElement.UE_ACTION_BUTTON, mHandler);
+
             for(int i = 0; i < mTiles.Count; ++i)
             {
                 mTiles[i].OnRelease();
@@ -127,8 +140,8 @@ namespace Brightstone
             mBrush.strength = mBrushStrength * mWorld.GetGameDelta();
             mBrush.size = mBrushRadius;
 
-            bool leftDown = Input.GetMouseButton(1);
-            bool rightDown = Input.GetMouseButton(0);
+            bool leftDown = Input.GetMouseButton(1) && mouseData.target == InputMouseData.Target.World;
+            bool rightDown = Input.GetMouseButton(0) && mouseData.target == InputMouseData.Target.World;
             // Setup Compute Shader..
             if(mComputeShader != null)
             {
@@ -142,7 +155,10 @@ namespace Brightstone
                     if(mTiles[i].RenderBrush(mBrush, mComputeShader, mComputeKernel) && (leftDown || rightDown))
                     {
                         mTiles[i].QueueUpdateCollision();
-                        mTiles[i].RenderDebugTexture(mDebugTexture);
+                        if(EditorConfig.current.debugWorldTerrain && mTiles[i].GetGameObject() == mBrush.target)
+                        {
+                            mTiles[i].RenderDebugTexture(mDebugTexture);
+                        }
                     }
                     
                 }
@@ -165,6 +181,7 @@ namespace Brightstone
             tile.SetMaterial(mMaterial);
             tile.OnInit(id, QuadCollision.Create(mTileProperties.size), mTileProperties);
             mTiles.Add(tile);
+            tile.GetGameObject().transform.SetParent(GetTransform(), true);
             //mData.AddTile(x, y, id.position);
             //mData.MarkDirty();
         }

@@ -634,7 +634,10 @@ namespace Brightstone
                 if (!flyweight.IsLoading() && flyweight.IsAsyncLoading())
                 {
                     mPendingLoads.RemoveAt(i);
-                    Log.Sys.Info("Finished loading " + flyweight.GetName());
+                    if(EditorConfig.current.debugResourceBatching)
+                    {
+                        Log.Sys.Info("Finished loading " + flyweight.GetName());
+                    }
                     flyweight.CompleteLoad();
                 }
             }

@@ -293,7 +293,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mEditorConfig:
-    debugLogRegister: 1
+    debugResourceBatching: 0
+    debugLogRegister: 0
+    debugWorldTerrain: 0
 --- !u!4 &117635556
 Transform:
   m_ObjectHideFlags: 0
@@ -1294,6 +1296,11 @@ Prefab:
       propertyPath: mComputeShader
       value: 
       objectReference: {fileID: 7200000, guid: 7b8bbad9e46462249a3a564900217e21, type: 3}
+    - target: {fileID: 114000013222140422, guid: bf8497d814294b54f93a759fb305a959,
+        type: 2}
+      propertyPath: mBrushStrength
+      value: 0.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bf8497d814294b54f93a759fb305a959, type: 2}
   m_IsPrefabParent: 0

@@ -281,6 +281,7 @@ namespace Brightstone
         public QuadMesh GetQuadMesh() { return mMesh; }
         public TileId GetId() { return mId; }
         public QuadCollision GetCollisionData() { return mRawDataBuffer; }
+        public GameObject GetGameObject() { return mGameObject; }
 
     }
 }

@@ -85,7 +85,10 @@ namespace Brightstone
         /** Acquire a type handle for comparison. */
         public void Acquire()
         {
-            World.ActiveWorld.GetTypeMgr().LoadType(TypeMgr.LoadMode.LM_ACQUIRE, this);
+            if(!IsLoaded())
+            {
+                World.ActiveWorld.GetTypeMgr().LoadType(TypeMgr.LoadMode.LM_ACQUIRE, this);
+            }
         }
 
         public bool IsLoaded()
